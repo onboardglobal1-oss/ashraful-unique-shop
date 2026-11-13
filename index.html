@@ -1,1 +1,335 @@
+cat << 'EOF' > index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASHRAFUL UNIQUE SHOP</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .app-container {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 25px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+            margin: 0 auto 12px auto;
+            box-shadow: 0 0 20px rgba(0, 219, 222, 0.6);
+        }
+        h1 {
+            font-size: 22px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 12px;
+            color: #bbb;
+            margin-top: 4px;
+        }
+        .nav-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ddd;
+            padding: 10px 5px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(0, 219, 222, 0.4);
+        }
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .prod-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .prod-icon {
+            font-size: 28px;
+            background: rgba(255,255,255,0.08);
+            padding: 10px;
+            border-radius: 12px;
+        }
+        .prod-title {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .prod-price {
+            font-size: 13px;
+            color: #00dbde;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+        .buy-btn {
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .info-card {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 13px;
+            line-height: 1.6;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .upi-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px dashed #00dbde;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 12px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #00dbde;
+            font-weight: bold;
+            word-break: break-all;
+        }
+        .order-alert {
+            background: rgba(0, 255, 136, 0.15);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 11px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="app-container">
+        <div class="header">
+            <div class="logo">🎁</div>
+            <h1>ASHRAFUL UNIQUE SHOP</h1>
+            <p class="subtitle">Welcome to Our Official Digital & Fashion Store</p>
+        </div>
+
+        <div id="orderSuccess" class="order-alert"></div>
+
+        <!-- TOP NAVIGATION TABS -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="openTab('shop', this)">🛍️ Shop</button>
+            <button class="tab-btn" onclick="openTab('payment', this)">💳 Payment</button>
+            <button class="tab-btn" onclick="openTab('refer', this)">🎁 Refer</button>
+            <button class="tab-btn" onclick="openTab('terms', this)">📜 Terms</button>
+            <button class="tab-btn" onclick="openTab('profile', this)">👤 Profile</button>
+            <button class="tab-btn" onclick="openTab('support', this)">💬 Support</button>
+        </div>
+
+        <!-- SHOP SECTION -->
+        <div id="shop" class="section active">
+            <div class="product-card">
+                <div class="prod-info">
+                    <div class="prod-icon">👕</div>
+                    <div>
+                        <div class="prod-title">Cotton Plain T-Shirt</div>
+                        <div class="prod-price">₹199</div>
+                    </div>
+                </div>
+                <button class="buy-btn" onclick="placeOrder('Cotton Plain T-Shirt', 199)">Buy Now</button>
+            </div>
+
+            <div class="product-card">
+                <div class="prod-info">
+                    <div class="prod-icon">👔</div>
+                    <div>
+                        <div class="prod-title">Casual Formal Shirt</div>
+                        <div class="prod-price">₹499</div>
+                    </div>
+                </div>
+                <button class="buy-btn" onclick="placeOrder('Casual Formal Shirt', 499)">Buy Now</button>
+            </div>
+
+            <div class="product-card">
+                <div class="prod-info">
+                    <div class="prod-icon">👖</div>
+                    <div>
+                        <div class="prod-title">Slim Fit Denim Jeans</div>
+                        <div class="prod-price">₹799</div>
+                    </div>
+                </div>
+                <button class="buy-btn" onclick="placeOrder('Slim Fit Denim Jeans', 799)">Buy Now</button>
+            </div>
+
+            <div class="product-card">
+                <div class="prod-info">
+                    <div class="prod-icon">🧥</div>
+                    <div>
+                        <div class="prod-title">Premium Winter Hoodie</div>
+                        <div class="prod-price">₹999</div>
+                    </div>
+                </div>
+                <button class="buy-btn" onclick="placeOrder('Premium Winter Hoodie', 999)">Buy Now</button>
+            </div>
+        </div>
+
+        <!-- PAYMENT SECTION -->
+        <div id="payment" class="section">
+            <div class="info-card" style="text-align: center;">
+                <h3 style="color: #00dbde; margin-bottom: 6px;">UPI Payment Only</h3>
+                <p style="font-size: 12px; color: #ccc;">Pay directly to our verified merchant UPI ID:</p>
+                <div class="upi-box">ashraful6807@okaxis</div>
+                <p id="payNote" style="font-size: 12px; color: #ff416c;">No pending order selected.</p>
+            </div>
+        </div>
+
+        <!-- REFER & EARN SECTION -->
+        <div id="refer" class="section">
+            <div class="info-card" style="text-align: center;">
+                <h3 style="color: #00dbde; margin-bottom: 8px;">🎁 Refer & Earn ₹50</h3>
+                <p style="font-size: 12px; color: #ccc;">Share ASHRAFUL UNIQUE SHOP with your friends and earn ₹50 reward on their first order!</p>
+                <div class="upi-box" style="font-size: 11px; color: #00ff88;" id="refLinkText">Loading...</div>
+            </div>
+        </div>
+
+        <!-- TERMS & POLICY SECTION -->
+        <div id="terms" class="section">
+            <div class="info-card">
+                <h3 style="color: #00dbde; margin-bottom: 8px;">📜 Terms & Policy</h3>
+                <p style="font-size: 12px; color: #ccc;">
+                    • <b>Payment:</b> Orders are confirmed after UPI payment.<br>
+                    • <b>Delivery:</b> Fast shipping across Assam & All India.<br>
+                    • <b>Return Policy:</b> 7-day easy replacement for damaged items.<br>
+                    • <b>Privacy:</b> Your details are 100% safe with us.
+                </p>
+            </div>
+        </div>
+
+        <!-- PROFILE SECTION -->
+        <div id="profile" class="section">
+            <div class="info-card">
+                <p><b>👤 Owner:</b> Ashraful</p>
+                <p><b>🏪 Shop Name:</b> ASHRAFUL UNIQUE SHOP</p>
+                <p><b>📍 Address:</b> Assam, Morigaon, Laharighat, Garam Bazar</p>
+                <p><b>✅ Status:</b> Verified Seller 🟢</p>
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 12px 0;">
+                <p style="font-weight: bold; color: #00dbde; margin-bottom: 5px;">📦 Order History:</p>
+                <div id="orderHistory" style="font-size: 12px; color: #ccc;">No orders yet.</div>
+            </div>
+        </div>
+
+        <!-- SUPPORT SECTION -->
+        <div id="support" class="section">
+            <div class="info-card">
+                <h3 style="color: #00dbde; margin-bottom: 8px;">💬 Customer Support</h3>
+                <p><b>📱 WhatsApp:</b> +91 7578868344</p>
+                <p><b>📧 Email:</b> ashrafuluniqeshopx@gmail.com</p>
+                <p><b>📍 Location:</b> Garam Bazar, Laharighat, Morigaon, Assam</p>
+                <p style="font-size: 11px; color: #aaa; margin-top: 10px;">Available 24/7 for order & payment assistance.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 ASHRAFUL UNIQUE SHOP • All Rights Reserved
+        </div>
+    </div>
+
+    <script>
+        let ordersList = [];
+        document.getElementById('refLinkText').innerText = window.location.href;
+
+        function openTab(tabId, btnElement) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        function placeOrder(itemName, price) {
+            const orderId = "ASH" + Math.floor(1000 + Math.random() * 9000);
+            const alertBox = document.getElementById('orderSuccess');
+            alertBox.style.display = 'block';
+            alertBox.innerHTML = `✅ <b>Order Placed!</b><br>${itemName} (₹${price})<br>Order ID: <b>#${orderId}</b>`;
+
+            document.getElementById('payNote').innerText = `Pending Payment: ₹${price} (${itemName})`;
+
+            ordersList.push(`• <b>#${orderId}</b> - ${itemName} (₹${price})`);
+            document.getElementById('orderHistory').innerHTML = ordersList.join('<br>');
+
+            setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
+        }
+    </script>
+
+</body>
+</html>
+EOF
+  
