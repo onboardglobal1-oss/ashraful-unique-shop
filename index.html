@@ -15,7 +15,8 @@
         body {
             background-color: #f1f3f6;
             color: #212121;
-            padding-bottom: 70px; /* Space for fixed bottom nav */
+            padding-bottom: 70px;
+            overflow-x: hidden;
         }
         /* Flipkart Style Header */
         .header {
@@ -65,7 +66,7 @@
             display: block;
         }
 
-        /* Home Banners & Categories */
+        /* Home Banners */
         .banner {
             background: linear-gradient(135deg, #2874f0, #1652c8);
             color: white;
@@ -224,7 +225,7 @@
         </div>
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search for Products, Brands and More">
+            <input type="text" id="search-input" placeholder="Search for Products, Brands and More" onkeyup="filterProducts()">
         </div>
     </div>
 
@@ -232,20 +233,16 @@
     <div id="home" class="section active">
         <div class="banner">
             <h2>Mega Seasonal Sale!</h2>
-            <p>Get up to 50% OFF on Fashion & Accessories</p>
+            <p>Get up to 50% OFF on Fashion, Electronics & More</p>
         </div>
         <h3 style="margin-bottom: 12px; font-size: 16px;">Trending Products</h3>
-        <div class="product-grid" id="home-products">
-            <!-- Dynamic Products -->
-        </div>
+        <div class="product-grid" id="home-products"></div>
     </div>
 
     <!-- 2. Shop Section -->
     <div id="shop" class="section">
-        <h3 style="margin-bottom: 12px; font-size: 16px;">All Categories & Products</h3>
-        <div class="product-grid" id="shop-products">
-            <!-- Dynamic Products -->
-        </div>
+        <h3 style="margin-bottom: 12px; font-size: 16px;">All Store Products</h3>
+        <div class="product-grid" id="shop-products"></div>
     </div>
 
     <!-- 3. Payment Section -->
@@ -317,20 +314,25 @@
     </div>
 
     <script>
-        // Product Data
+        // Expanded Product Data
         const products = [
             { id: 1, name: "Cotton Plain T-Shirt", price: "₹199", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=300" },
             { id: 2, name: "Casual Formal Shirt", price: "₹499", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300" },
             { id: 3, name: "Slim Fit Denim Jeans", price: "₹799", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=300" },
-            { id: 4, name: "Premium Winter Hoodie", price: "₹999", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300" }
+            { id: 4, name: "Premium Winter Hoodie", price: "₹999", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300" },
+            { id: 5, name: "Stylish Sports Shoes", price: "₹899", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" },
+            { id: 6, name: "Wireless Bluetooth Earbuds", price: "₹699", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" },
+            { id: 7, name: "Smart Fitness Watch", price: "₹1299", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" },
+            { id: 8, name: "Classic Leather Wallet", price: "₹299", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" },
+            { id: 9, name: "Designer Sunglasses", price: "₹449", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300" },
+            { id: 10, name: "Casual Backpack", price: "₹749", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" }
         ];
 
-        // Load Products into Home and Shop
-        function loadProducts() {
+        function displayProducts(productList, elementId) {
             let html = "";
-            products.forEach(p => {
+            productList.forEach(p => {
                 html += `
-                    <div class="product-card" onclick="alert('${p.name} added to cart! Proceed to Payment.')">
+                    <div class="product-card" onclick="goToPayment('${p.name}')">
                         <img src="${p.img}" alt="${p.name}">
                         <div class="product-name">${p.name}</div>
                         <div class="product-price">${p.price}</div>
@@ -338,11 +340,26 @@
                     </div>
                 `;
             });
-            document.getElementById('home-products').innerHTML = html;
-            document.getElementById('shop-products').innerHTML = html;
+            document.getElementById(elementId).innerHTML = html;
         }
 
-        // Tab Switching Logic
+        function loadAllProducts() {
+            displayProducts(products, 'home-products');
+            displayProducts(products, 'shop-products');
+        }
+
+        function goToPayment(productName) {
+            alert(productName + " selected! Proceeding to Payment.");
+            switchTab('payment', document.querySelectorAll('.nav-item')[2]);
+        }
+
+        function filterProducts() {
+            let query = document.getElementById('search-input').value.toLowerCase();
+            let filtered = products.filter(p => p.name.toLowerCase().includes(query));
+            displayProducts(filtered, 'home-products');
+            displayProducts(filtered, 'shop-products');
+        }
+
         function switchTab(tabId, element) {
             document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
@@ -352,7 +369,6 @@
             window.scrollTo(0, 0);
         }
 
-        // Save Profile Functionality
         function saveProfile() {
             let name = document.getElementById('cust-name').value;
             let phone = document.getElementById('cust-phone').value;
@@ -368,9 +384,8 @@
             }
         }
 
-        // Load saved profile data on startup
         window.onload = function() {
-            loadProducts();
+            loadAllProducts();
             if(localStorage.getItem('customer_name')) {
                 document.getElementById('cust-name').value = localStorage.getItem('customer_name');
                 document.getElementById('cust-phone').value = localStorage.getItem('customer_phone');
