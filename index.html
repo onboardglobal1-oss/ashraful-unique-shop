@@ -7,59 +7,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f1f3f6; color: #212121; padding-bottom: 85px; overflow-x: hidden; }
-        
-        /* Header */
+        body { background-color: #f1f3f6; color: #212121; padding-bottom: 75px; overflow-x: hidden; }
         .header { background-color: #2874f0; color: white; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .logo-title { font-size: 18px; font-weight: bold; font-style: italic; display: flex; align-items: center; gap: 6px; }
         .search-box { background: white; display: flex; align-items: center; padding: 8px 12px; border-radius: 2px; }
         .search-box input { border: none; outline: none; width: 100%; font-size: 14px; margin-left: 8px; }
         .search-box i { color: #878787; }
-
-        /* Category Bar */
-        .category-bar { background: white; display: flex; overflow-x: auto; padding: 10px; gap: 15px; white-space: nowrap; border-bottom: 1px solid #e0e0e0; scrollbar-width: none; }
-        .category-bar::-webkit-scrollbar { display: none; }
-        .cat-item { text-align: center; font-size: 12px; cursor: pointer; color: #333; min-width: 65px; }
-
-        /* Swipeable Banner Carousel */
-        .banner-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 10px; padding: 12px 15px; }
-        .banner-carousel::-webkit-scrollbar { display: none; }
-        .banner-card { flex: 0 0 100%; scroll-snap-align: start; border-radius: 10px; overflow: hidden; height: 160px; position: relative; color: white; display: flex; flex-direction: column; justify-content: center; padding: 20px; background: linear-gradient(135deg, #1652c8, #2874f0); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-        .banner-card h2 { font-size: 20px; margin-bottom: 5px; }
-        .banner-card p { font-size: 13px; opacity: 0.9; }
-        .banner-dots { display: flex; justify-content: center; gap: 6px; margin-bottom: 10px; }
-        .dot { width: 6px; height: 6px; background: #c2c2c2; border-radius: 50%; }
-        .dot.active { background: #2874f0; width: 18px; border-radius: 3px; }
-
-        /* Sections */
-        .section { display: none; padding: 12px 15px; }
+        .category-bar { background: white; display: flex; overflow-x: auto; padding: 10px; gap: 15px; white-space: nowrap; border-bottom: 1px solid #e0e0e0; }
+        .cat-item { text-align: center; font-size: 12px; cursor: pointer; color: #333; min-width: 60px; }
+        .section { display: none; padding: 15px; }
         .section.active { display: block; }
-
-        /* Product Grid */
+        .banner { background: linear-gradient(135deg, #2874f0, #ff9f00); color: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; text-align: center; }
+        .banner h2 { font-size: 18px; margin-bottom: 5px; }
+        .banner p { font-size: 13px; opacity: 0.9; }
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .product-card { background: white; padding: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-card img { width: 100%; height: 140px; object-fit: contain; margin-bottom: 8px; }
+        .product-card { background: white; padding: 10px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; }
+        .product-card img { width: 100%; height: 130px; object-fit: contain; margin-bottom: 8px; }
         .product-name { font-size: 13px; font-weight: 500; color: #212121; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .product-price { font-size: 15px; font-weight: bold; color: #388e3c; margin-bottom: 8px; }
         .btn-buy { background: #ff9f00; color: white; border: none; padding: 7px 10px; width: 100%; font-weight: bold; font-size: 12px; border-radius: 2px; cursor: pointer; }
-
-        /* Product Detail & Reviews Page */
-        #product-detail { background: white; min-height: 90vh; padding: 15px; display: none; }
-        .detail-img { width: 100%; height: 260px; object-fit: contain; margin-bottom: 15px; }
+        #product-detail { background: white; min-height: 85vh; padding: 15px; display: none; }
+        .detail-img { width: 100%; height: 250px; object-fit: contain; margin-bottom: 15px; }
         .detail-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
         .detail-price { font-size: 22px; font-weight: bold; color: #388e3c; margin-bottom: 15px; }
         .size-box { display: flex; gap: 10px; margin: 15px 0; }
         .size-btn { padding: 8px 15px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer; }
         .size-btn.selected { border-color: #2874f0; color: #2874f0; font-weight: bold; }
-        
-        .reviews-section { margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; }
-        .review-card { background: #f9f9f9; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
-        .review-author { font-weight: bold; font-size: 13px; color: #333; margin-bottom: 3px; }
-        .review-stars { color: #388e3c; font-size: 12px; margin-bottom: 5px; }
-        .review-text { font-size: 13px; color: #555; }
-
-        /* Payment, Support, Profile, Cart */
         .payment-box, .support-box, .profile-box, .cart-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         .payment-box img { width: 220px; height: 220px; object-fit: contain; margin: 15px 0; border: 1px solid #ddd; border-radius: 8px; padding: 5px; }
         .upi-text { font-size: 15px; font-weight: bold; color: #2874f0; margin-bottom: 15px; }
@@ -68,14 +42,11 @@
         .profile-box input { width: 100%; padding: 10px; margin: 8px 0 15px 0; border: 1px solid #ccc; border-radius: 4px; }
         .profile-box label { font-weight: 500; font-size: 14px; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
-
-        /* Exact Flipkart Style Floating Bottom Navigation */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 8px 4px; box-shadow: 0 -2px 8px rgba(0,0,0,0.1); z-index: 1000; border-top-left-radius: 12px; border-top-right-radius: 12px; }
-        .nav-item { text-align: center; color: #565656; text-decoration: none; font-size: 11px; cursor: pointer; flex: 1; position: relative; padding: 4px 0; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 8px 0; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); z-index: 1000; }
+        .nav-item { text-align: center; color: #878787; text-decoration: none; font-size: 11px; cursor: pointer; flex: 1; position: relative; }
         .nav-item i { display: block; font-size: 18px; margin-bottom: 3px; }
-        .nav-item.active { color: #2874f0; font-weight: 600; }
-        .nav-item.active .home-pill { background: #e8f0fe; width: 42px; height: 26px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2px; }
-        .cart-badge { position: absolute; top: 0; right: 22%; background: #ff3b30; color: white; font-size: 10px; padding: 1px 5px; border-radius: 50%; font-weight: bold; }
+        .nav-item.active { color: #2874f0; }
+        .cart-badge { position: absolute; top: 0; right: 25%; background: #ff3b30; color: white; font-size: 10px; padding: 1px 5px; border-radius: 50%; }
     </style>
 </head>
 <body>
@@ -86,106 +57,58 @@
         </div>
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="search-input" placeholder="Search for 100+ Products, Brands..." onkeyup="filterProducts()">
+            <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
         </div>
     </div>
 
-    <!-- Category Bar -->
     <div class="category-bar">
         <div class="cat-item" onclick="switchTab('home', document.querySelectorAll('.nav-item')[0])">
-            <i class="fa-solid fa-house" style="font-size:20px; color:#2874f0; display:block; margin:0 auto 3px;"></i>For You
+            <i class="fa-solid fa-house" style="font-size:22px; color:#2874f0; display:block; margin:0 auto 3px;"></i>For You
         </div>
         <div class="cat-item" onclick="filterByCategory('Shirt')">
-            <i class="fa-solid fa-shirt" style="font-size:20px; color:#ff9f00; display:block; margin:0 auto 3px;"></i>Fashion
+            <i class="fa-solid fa-shirt" style="font-size:22px; color:#ff9f00; display:block; margin:0 auto 3px;"></i>Fashion
         </div>
         <div class="cat-item" onclick="filterByCategory('Earbuds')">
-            <i class="fa-solid fa-headphones" style="font-size:20px; color:#388e3c; display:block; margin:0 auto 3px;"></i>Electronics
+            <i class="fa-solid fa-headphones" style="font-size:22px; color:#388e3c; display:block; margin:0 auto 3px;"></i>Electronics
         </div>
         <div class="cat-item" onclick="filterByCategory('Shoes')">
-            <i class="fa-solid fa-shoe-prints" style="font-size:20px; color:#e91e63; display:block; margin:0 auto 3px;"></i>Footwear
+            <i class="fa-solid fa-shoe-prints" style="font-size:22px; color:#e91e63; display:block; margin:0 auto 3px;"></i>Footwear
         </div>
         <div class="cat-item" onclick="filterByCategory('Watch')">
-            <i class="fa-solid fa-clock" style="font-size:20px; color:#9c27b0; display:block; margin:0 auto 3px;"></i>Watches
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Bag')">
-            <i class="fa-solid fa-bag-shopping" style="font-size:20px; color:#00bcd4; display:block; margin:0 auto 3px;"></i>Bags
+            <i class="fa-solid fa-clock" style="font-size:22px; color:#9c27b0; display:block; margin:0 auto 3px;"></i>Watches
         </div>
     </div>
 
     <!-- Home Section -->
     <div id="home" class="section active">
-        <!-- Swipeable Banners -->
-        <div class="banner-carousel" id="bannerSlider">
-            <div class="banner-card" style="background: linear-gradient(135deg, #1652c8, #2874f0);">
-                <h2>Mega Seasonal Sale!</h2>
-                <p>Get up to 50% OFF on Fashion & Accessories</p>
-            </div>
-            <div class="banner-card" style="background: linear-gradient(135deg, #388e3c, #107c41);">
-                <h2>Top Electronics Deals</h2>
-                <p>Smartwatches, Earbuds & Gadgets from ₹299</p>
-            </div>
-            <div class="banner-card" style="background: linear-gradient(135deg, #9c27b0, #673ab7);">
-                <h2>Free Delivery Nationwide</h2>
-                <p>Order Now & Pay via Secure UPI QR Code</p>
-            </div>
+        <div class="banner">
+            <h2>Mega Seasonal Sale!</h2>
+            <p>Get up to 50% OFF on Fashion & Electronics</p>
         </div>
-        <div class="banner-dots">
-            <div class="dot active" id="dot0"></div>
-            <div class="dot" id="dot1"></div>
-            <div class="dot" id="dot2"></div>
-        </div>
-
-        <h3 style="margin-bottom: 12px; font-size: 16px;">Suggested For You (100+ Products)</h3>
+        <h3 style="margin-bottom: 12px; font-size: 16px;">Trending Products</h3>
         <div class="product-grid" id="home-products"></div>
     </div>
 
     <!-- Categories Section -->
     <div id="categories" class="section">
-        <h3 style="margin-bottom: 12px; font-size: 16px;">All Categories & Products</h3>
+        <h3 style="margin-bottom: 12px; font-size: 16px;">All Products</h3>
         <div class="product-grid" id="shop-products"></div>
     </div>
 
-    <!-- Product Detail & Reviews View -->
+    <!-- Product Detail View -->
     <div id="product-detail">
-        <button onclick="closeDetail()" style="background:none; border:none; font-size:15px; color:#2874f0; cursor:pointer; margin-bottom:12px; font-weight:600;"><i class="fa-solid fa-arrow-left"></i> Back to Store</button>
+        <button onclick="closeDetail()" style="background:none; border:none; font-size:16px; color:#2874f0; cursor:pointer; margin-bottom:15px;"><i class="fa-solid fa-arrow-left"></i> Back</button>
         <img id="det-img" class="detail-img" src="" alt="">
         <div id="det-title" class="detail-title"></div>
         <div id="det-price" class="detail-price"></div>
-        <p style="font-size: 13px; color: #666; margin-bottom: 8px;">Select Size:</p>
         <div class="size-box">
             <button class="size-btn selected" onclick="selectSize(this)">Free Size</button>
             <button class="size-btn" onclick="selectSize(this)">S</button>
             <button class="size-btn" onclick="selectSize(this)">M</button>
             <button class="size-btn" onclick="selectSize(this)">L</button>
-            <button class="size-btn" onclick="selectSize(this)">XL</button>
         </div>
-        <button class="btn-buy" style="padding: 12px; font-size: 15px; margin-top: 10px;" onclick="addToCartFromDetail()">Add to Cart</button>
+        <button class="btn-buy" style="padding: 12px; font-size: 15px; margin-top: 15px;" onclick="addToCartFromDetail()">Add to Cart</button>
         <button class="btn-buy" style="padding: 12px; font-size: 15px; margin-top: 10px; background: #fb641b;" onclick="buyNowDirect()">Buy Now</button>
-        
-        <!-- Customer Reviews Section -->
-        <div class="reviews-section">
-            <h3 style="font-size: 16px; margin-bottom: 12px;">Customer Ratings & Reviews (4.8 ★)</h3>
-            <div class="review-card">
-                <div class="review-author">Rahul Sharma</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Amazing product quality! Fast delivery and exact same item as shown in pictures. Highly recommended.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Priya Verma</div>
-                <div class="review-stars">★★★★☆ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Good material and comfortable fit. Value for money store! Will order again.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Amit Kumar</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Superb experience shopping here. UPI payment was very smooth and support team replied instantly on WhatsApp.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Sneha Das</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Loved the packaging and overall product finish. 10/10 service!</div>
-            </div>
-        </div>
     </div>
 
     <!-- Payment Section -->
@@ -243,387 +166,42 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar (Exact Flipkart Style from Screenshot) -->
+    <!-- Bottom Navigation Bar -->
     <div class="bottom-nav">
         <div class="nav-item active" onclick="switchTab('home', this)">
-            <div class="home-pill"><i class="fa-solid fa-house" style="color:#2874f0;"></i></div>
-            Home
-        </div>
-        <div class="nav-item" onclick="switchTab('support', this)">
-            <i class="fa-solid fa-play"></i>
-            Play
+            <i class="fa-solid fa-house"></i>Home
         </div>
         <div class="nav-item" onclick="switchTab('categories', this)">
-            <i class="fa-solid fa-table-cells"></i>
-            Categories
+            <i class="fa-solid fa-list"></i>Categories
+        </div>
+        <div class="nav-item" onclick="switchTab('payment', this)">
+            <i class="fa-solid fa-wallet"></i>Payment
+        </div>
+        <div class="nav-item" onclick="switchTab('support', this)">
+            <i class="fa-solid fa-headset"></i>Support
         </div>
         <div class="nav-item" onclick="switchTab('profile', this)">
-            <i class="fa-solid fa-user"></i>
-            Account
+            <i class="fa-solid fa-user"></i>Profile
         </div>
         <div class="nav-item" onclick="switchTab('cart', this)">
-            <i class="fa-solid fa-cart-shopping"></i>
-            Cart
+            <i class="fa-solid fa-cart-shopping"></i>Cart
             <span class="cart-badge" id="cart-count">0</span>
         </div>
     </div>
 
     <script>
-        // Generated 100+ Products List
-        const baseProducts = [
-            { name: "Cotton Plain T-Shirt", price: 199, img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=300" },
-            { name: "Casual Formal Shirt", price: 499, img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300" },
-            { name: "Slim Fit Denim Jeans", price: 799, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=300" },
-            { name: "Premium Winter Hoodie", price: 999, img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300" },
-            { name: "Stylish Sports Shoes", price: 899, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" },
-            { name: "Wireless Bluetooth Earbuds", price: 699, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" },
-            { name: "Smart Fitness Watch", price: 1299, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" },
-            { name: "Classic Leather Wallet", price: 299, img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" },
-            { name: "Designer Sunglasses", price: 449, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300" },
-            { name: "Casual Backpack", price: 749, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" }
+        const products = [
+            { id: 1, name: "Cotton Plain T-Shirt", price: 199, img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=300" },
+            { id: 2, name: "Casual Formal Shirt", price: 499, img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300" },
+            { id: 3, name: "Slim Fit Denim Jeans", price: 799, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=300" },
+            { id: 4, name: "Premium Winter Hoodie", price: 999, img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300" },
+            { id: 5, name: "Stylish Sports Shoes", price: 899, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" },
+            { id: 6, name: "Wireless Bluetooth Earbuds", price: 699, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" },
+            { id: 7, name: "Smart Fitness Watch", price: 1299, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" },
+            { id: 8, name: "Classic Leather Wallet", price: 299, img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" },
+            { id: 9, name: "Designer Sunglasses", price: 449, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300" },
+            { id: 10, name: "Casual Backpack", price: 749, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" }
         ];
-
-        let products = [];
-        let idCounter = 1;
-        const categoriesList = ["Classic", "Trendy", "Super", "Royal", "Elite", "Pro", "New", "Modern", "Designer", "Exclusive"];
-        
-        // Generating 100+ unique products dynamically
-        categoriesList.forEach(prefix => {
-            baseProducts.forEach(bp => {
-                products.push({
-                    id: idCounter++,
-                    name: `${prefix} ${bp.name}`,
-                    price: bp.price + (idCounter % 5) * 50,
-                    img: bp.img
-                });
-            });
-        });
-
-        let cart = [];
-        let currentSelectedProduct = null;
-
-        function displayProducts(productList, elementId) {
-            let html = "";
-            productList.forEach(p => {
-                html += `
-                    <div class="product-card" onclick="openDetail(${p.id})">
-                        <img src="${p.img}" alt="${p.name}">
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-price">₹${p.price}</div>
-                        <button class="btn-buy" onclick="event.stopPropagation(); quickBuy(${p.id})">Buy Now</button>
-                    </div>
-                `;
-            });
-            document.getElementById(elementId).innerHTML = html;
-        }
-
-        function loadAllProducts() {
-            displayProducts(products, 'home-products');
-            displayProducts(products, 'shop-products');
-        }
-
-        function openDetail(id) {
-            currentSelectedProduct = products.find(p => p.id === id);
-      <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASHRAFUL UNIQUE SHOP</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f1f3f6; color: #212121; padding-bottom: 85px; overflow-x: hidden; }
-        
-        /* Header */
-        .header { background-color: #2874f0; color: white; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .logo-title { font-size: 18px; font-weight: bold; font-style: italic; display: flex; align-items: center; gap: 6px; }
-        .search-box { background: white; display: flex; align-items: center; padding: 8px 12px; border-radius: 2px; }
-        .search-box input { border: none; outline: none; width: 100%; font-size: 14px; margin-left: 8px; }
-        .search-box i { color: #878787; }
-
-        /* Category Bar */
-        .category-bar { background: white; display: flex; overflow-x: auto; padding: 10px; gap: 15px; white-space: nowrap; border-bottom: 1px solid #e0e0e0; scrollbar-width: none; }
-        .category-bar::-webkit-scrollbar { display: none; }
-        .cat-item { text-align: center; font-size: 12px; cursor: pointer; color: #333; min-width: 65px; }
-
-        /* Swipeable Banner Carousel */
-        .banner-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 10px; padding: 12px 15px; }
-        .banner-carousel::-webkit-scrollbar { display: none; }
-        .banner-card { flex: 0 0 100%; scroll-snap-align: start; border-radius: 10px; overflow: hidden; height: 160px; position: relative; color: white; display: flex; flex-direction: column; justify-content: center; padding: 20px; background: linear-gradient(135deg, #1652c8, #2874f0); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-        .banner-card h2 { font-size: 20px; margin-bottom: 5px; }
-        .banner-card p { font-size: 13px; opacity: 0.9; }
-        .banner-dots { display: flex; justify-content: center; gap: 6px; margin-bottom: 10px; }
-        .dot { width: 6px; height: 6px; background: #c2c2c2; border-radius: 50%; }
-        .dot.active { background: #2874f0; width: 18px; border-radius: 3px; }
-
-        /* Sections */
-        .section { display: none; padding: 12px 15px; }
-        .section.active { display: block; }
-
-        /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .product-card { background: white; padding: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-card img { width: 100%; height: 140px; object-fit: contain; margin-bottom: 8px; }
-        .product-name { font-size: 13px; font-weight: 500; color: #212121; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .product-price { font-size: 15px; font-weight: bold; color: #388e3c; margin-bottom: 8px; }
-        .btn-buy { background: #ff9f00; color: white; border: none; padding: 7px 10px; width: 100%; font-weight: bold; font-size: 12px; border-radius: 2px; cursor: pointer; }
-
-        /* Product Detail & Reviews Page */
-        #product-detail { background: white; min-height: 90vh; padding: 15px; display: none; }
-        .detail-img { width: 100%; height: 260px; object-fit: contain; margin-bottom: 15px; }
-        .detail-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-        .detail-price { font-size: 22px; font-weight: bold; color: #388e3c; margin-bottom: 15px; }
-        .size-box { display: flex; gap: 10px; margin: 15px 0; }
-        .size-btn { padding: 8px 15px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer; }
-        .size-btn.selected { border-color: #2874f0; color: #2874f0; font-weight: bold; }
-        
-        .reviews-section { margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; }
-        .review-card { background: #f9f9f9; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
-        .review-author { font-weight: bold; font-size: 13px; color: #333; margin-bottom: 3px; }
-        .review-stars { color: #388e3c; font-size: 12px; margin-bottom: 5px; }
-        .review-text { font-size: 13px; color: #555; }
-
-        /* Payment, Support, Profile, Cart */
-        .payment-box, .support-box, .profile-box, .cart-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .payment-box img { width: 220px; height: 220px; object-fit: contain; margin: 15px 0; border: 1px solid #ddd; border-radius: 8px; padding: 5px; }
-        .upi-text { font-size: 15px; font-weight: bold; color: #2874f0; margin-bottom: 15px; }
-        .support-btn { display: block; background: #25d366; color: white; text-align: center; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-top: 15px; }
-        .support-btn.insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); margin-top: 10px; }
-        .profile-box input { width: 100%; padding: 10px; margin: 8px 0 15px 0; border: 1px solid #ccc; border-radius: 4px; }
-        .profile-box label { font-weight: 500; font-size: 14px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
-
-        /* Exact Flipkart Style Floating Bottom Navigation */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 8px 4px; box-shadow: 0 -2px 8px rgba(0,0,0,0.1); z-index: 1000; border-top-left-radius: 12px; border-top-right-radius: 12px; }
-        .nav-item { text-align: center; color: #565656; text-decoration: none; font-size: 11px; cursor: pointer; flex: 1; position: relative; padding: 4px 0; }
-        .nav-item i { display: block; font-size: 18px; margin-bottom: 3px; }
-        .nav-item.active { color: #2874f0; font-weight: 600; }
-        .nav-item.active .home-pill { background: #e8f0fe; width: 42px; height: 26px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2px; }
-        .cart-badge { position: absolute; top: 0; right: 22%; background: #ff3b30; color: white; font-size: 10px; padding: 1px 5px; border-radius: 50%; font-weight: bold; }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <div class="header-top">
-            <span class="logo-title"><i class="fa-solid fa-store"></i> ASHRAFUL UNIQUE SHOP</span>
-        </div>
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="search-input" placeholder="Search for 100+ Products, Brands..." onkeyup="filterProducts()">
-        </div>
-    </div>
-
-    <!-- Category Bar -->
-    <div class="category-bar">
-        <div class="cat-item" onclick="switchTab('home', document.querySelectorAll('.nav-item')[0])">
-            <i class="fa-solid fa-house" style="font-size:20px; color:#2874f0; display:block; margin:0 auto 3px;"></i>For You
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Shirt')">
-            <i class="fa-solid fa-shirt" style="font-size:20px; color:#ff9f00; display:block; margin:0 auto 3px;"></i>Fashion
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Earbuds')">
-            <i class="fa-solid fa-headphones" style="font-size:20px; color:#388e3c; display:block; margin:0 auto 3px;"></i>Electronics
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Shoes')">
-            <i class="fa-solid fa-shoe-prints" style="font-size:20px; color:#e91e63; display:block; margin:0 auto 3px;"></i>Footwear
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Watch')">
-            <i class="fa-solid fa-clock" style="font-size:20px; color:#9c27b0; display:block; margin:0 auto 3px;"></i>Watches
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Bag')">
-            <i class="fa-solid fa-bag-shopping" style="font-size:20px; color:#00bcd4; display:block; margin:0 auto 3px;"></i>Bags
-        </div>
-    </div>
-
-    <!-- Home Section -->
-    <div id="home" class="section active">
-        <!-- Swipeable Banners -->
-        <div class="banner-carousel" id="bannerSlider">
-            <div class="banner-card" style="background: linear-gradient(135deg, #1652c8, #2874f0);">
-                <h2>Mega Seasonal Sale!</h2>
-                <p>Get up to 50% OFF on Fashion & Accessories</p>
-            </div>
-            <div class="banner-card" style="background: linear-gradient(135deg, #388e3c, #107c41);">
-                <h2>Top Electronics Deals</h2>
-                <p>Smartwatches, Earbuds & Gadgets from ₹299</p>
-            </div>
-            <div class="banner-card" style="background: linear-gradient(135deg, #9c27b0, #673ab7);">
-                <h2>Free Delivery Nationwide</h2>
-                <p>Order Now & Pay via Secure UPI QR Code</p>
-            </div>
-        </div>
-        <div class="banner-dots">
-            <div class="dot active" id="dot0"></div>
-            <div class="dot" id="dot1"></div>
-            <div class="dot" id="dot2"></div>
-        </div>
-
-        <h3 style="margin-bottom: 12px; font-size: 16px;">Suggested For You (100+ Products)</h3>
-        <div class="product-grid" id="home-products"></div>
-    </div>
-
-    <!-- Categories Section -->
-    <div id="categories" class="section">
-        <h3 style="margin-bottom: 12px; font-size: 16px;">All Categories & Products</h3>
-        <div class="product-grid" id="shop-products"></div>
-    </div>
-
-    <!-- Product Detail & Reviews View -->
-    <div id="product-detail">
-        <button onclick="closeDetail()" style="background:none; border:none; font-size:15px; color:#2874f0; cursor:pointer; margin-bottom:12px; font-weight:600;"><i class="fa-solid fa-arrow-left"></i> Back to Store</button>
-        <img id="det-img" class="detail-img" src="" alt="">
-        <div id="det-title" class="detail-title"></div>
-        <div id="det-price" class="detail-price"></div>
-        <p style="font-size: 13px; color: #666; margin-bottom: 8px;">Select Size:</p>
-        <div class="size-box">
-            <button class="size-btn selected" onclick="selectSize(this)">Free Size</button>
-            <button class="size-btn" onclick="selectSize(this)">S</button>
-            <button class="size-btn" onclick="selectSize(this)">M</button>
-            <button class="size-btn" onclick="selectSize(this)">L</button>
-            <button class="size-btn" onclick="selectSize(this)">XL</button>
-        </div>
-        <button class="btn-buy" style="padding: 12px; font-size: 15px; margin-top: 10px;" onclick="addToCartFromDetail()">Add to Cart</button>
-        <button class="btn-buy" style="padding: 12px; font-size: 15px; margin-top: 10px; background: #fb641b;" onclick="buyNowDirect()">Buy Now</button>
-        
-        <!-- Customer Reviews Section -->
-        <div class="reviews-section">
-            <h3 style="font-size: 16px; margin-bottom: 12px;">Customer Ratings & Reviews (4.8 ★)</h3>
-            <div class="review-card">
-                <div class="review-author">Rahul Sharma</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Amazing product quality! Fast delivery and exact same item as shown in pictures. Highly recommended.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Priya Verma</div>
-                <div class="review-stars">★★★★☆ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Good material and comfortable fit. Value for money store! Will order again.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Amit Kumar</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Superb experience shopping here. UPI payment was very smooth and support team replied instantly on WhatsApp.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Sneha Das</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Loved the packaging and overall product finish. 10/10 service!</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Payment Section -->
-    <div id="payment" class="section">
-        <div class="payment-box" style="text-align: center;">
-            <h3>Scan & Pay via any UPI App</h3>
-            <p style="font-size: 13px; color: #666; margin-top: 5px;">Ashraful Hussain</p>
-            <img src="https://i.ibb.co/3ykf168J/1000070389.png" alt="Payment QR Code">
-            <div class="upi-text">UPI ID: ashraful6807@okaxis</div>
-            <a href="https://wa.me/917578868344?text=Hello%20Ashraful%20Unique%20Shop,%20I%20have%20completed%20the%20payment." class="support-btn" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Send Payment Screenshot on WhatsApp
-            </a>
-        </div>
-    </div>
-
-    <!-- Support Section -->
-    <div id="support" class="section">
-        <div class="support-box">
-            <h3>Customer Support</h3>
-            <p style="margin-top: 10px; font-size: 14px; color: #555;">Need help? Contact us directly:</p>
-            <p style="margin-top: 15px; font-size: 14px;"><strong>Email:</strong> ashrafuldexex@gamil.com</p>
-            <p style="margin-top: 5px; font-size: 14px;"><strong>Phone / WhatsApp:</strong> 7578868344</p>
-            <p style="margin-top: 5px; font-size: 14px;"><strong>Instagram:</strong> @ashaful__7</p>
-            <a href="https://wa.me/917578868344?text=Hello%20Ashraful%20Unique%20Shop,%20I%20need%20help." class="support-btn" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
-            </a>
-            <a href="https://instagram.com/ashaful__7" class="support-btn insta" target="_blank">
-                <i class="fa-brands fa-instagram"></i> Visit Instagram
-            </a>
-        </div>
-    </div>
-
-    <!-- Profile Section -->
-    <div id="profile" class="section">
-        <div class="profile-box">
-            <h3>My Profile & Address</h3>
-            <label>Full Name</label>
-            <input type="text" id="cust-name" placeholder="Enter your name">
-            <label>Mobile Number</label>
-            <input type="text" id="cust-phone" placeholder="Enter mobile number">
-            <label>Delivery Address</label>
-            <input type="text" id="cust-address" placeholder="Enter house no, street, city, pincode">
-            <button class="btn-buy" onclick="saveProfile()">Save Address</button>
-            <p id="save-msg" style="color: green; font-size: 13px; margin-top: 10px; text-align: center;"></p>
-        </div>
-    </div>
-
-    <!-- Cart Section -->
-    <div id="cart" class="section">
-        <div class="cart-box">
-            <h3>My Shopping Cart</h3>
-            <div id="cart-items" style="margin: 15px 0;"></div>
-            <div id="cart-total" style="font-weight: bold; font-size: 16px; margin: 15px 0;"></div>
-            <button class="btn-buy" onclick="switchTab('payment', document.querySelectorAll('.nav-item')[2])">Proceed to Payment</button>
-        </div>
-    </div>
-
-    <!-- Bottom Navigation Bar (Exact Flipkart Style from Screenshot) -->
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('home', this)">
-            <div class="home-pill"><i class="fa-solid fa-house" style="color:#2874f0;"></i></div>
-            Home
-        </div>
-        <div class="nav-item" onclick="switchTab('support', this)">
-            <i class="fa-solid fa-play"></i>
-            Play
-        </div>
-        <div class="nav-item" onclick="switchTab('categories', this)">
-            <i class="fa-solid fa-table-cells"></i>
-            Categories
-        </div>
-        <div class="nav-item" onclick="switchTab('profile', this)">
-            <i class="fa-solid fa-user"></i>
-            Account
-        </div>
-        <div class="nav-item" onclick="switchTab('cart', this)">
-            <i class="fa-solid fa-cart-shopping"></i>
-            Cart
-            <span class="cart-badge" id="cart-count">0</span>
-        </div>
-    </div>
-
-    <script>
-        // Generated 100+ Products List
-        const baseProducts = [
-            { name: "Cotton Plain T-Shirt", price: 199, img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=300" },
-            { name: "Casual Formal Shirt", price: 499, img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300" },
-            { name: "Slim Fit Denim Jeans", price: 799, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=300" },
-            { name: "Premium Winter Hoodie", price: 999, img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300" },
-            { name: "Stylish Sports Shoes", price: 899, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" },
-            { name: "Wireless Bluetooth Earbuds", price: 699, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" },
-            { name: "Smart Fitness Watch", price: 1299, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" },
-            { name: "Classic Leather Wallet", price: 299, img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" },
-            { name: "Designer Sunglasses", price: 449, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300" },
-            { name: "Casual Backpack", price: 749, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" }
-        ];
-
-        let products = [];
-        let idCounter = 1;
-        const categoriesList = ["Classic", "Trendy", "Super", "Royal", "Elite", "Pro", "New", "Modern", "Designer", "Exclusive"];
-        
-        // Generating 100+ unique products dynamically
-        categoriesList.forEach(prefix => {
-            baseProducts.forEach(bp => {
-                products.push({
-                    id: idCounter++,
-                    name: `${prefix} ${bp.name}`,
-                    price: bp.price + (idCounter % 5) * 50,
-                    img: bp.img
-                });
-            });
-        });
 
         let cart = [];
         let currentSelectedProduct = null;
@@ -745,901 +323,6 @@
                 alert("Please fill all details!");
             }
         }
-
-        // Banner Slider Dots Tracker
-        const bannerSlider = document.getElementById('bannerSlider');
-        bannerSlider.addEventListener('scroll', () => {
-            let index = Math.round(bannerSlider.scrollLeft / bannerSlider.clientWidth);
-            document.querySelectorAll('.dot').forEach((d, i) => {
-                d.classList.toggle('active', i === index);
-            });
-        });
-
-        window.onload = function() {
-            loadAllProducts();
-            updateCartCount();
-            if(localStorage.getItem('customer_name')) {
-                document.getElementById('cust-name').value = localStorage.getItem('customer_name');
-                document.getElementById('cust-phone').value = localStorage.getItem('customer_phone');
-                document.getElementById('cust-address').value = localStorage.getItem('customer_address');
-            }
-        }
-    </script>
-</body>
-</html>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASHRAFUL UNIQUE SHOP</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f1f3f6; color: #212121; padding-bottom: 85px; overflow-x: hidden; }
-        
-        /* Header */
-        .header { background-color: #2874f0; color: white; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .logo-title { font-size: 18px; font-weight: bold; font-style: italic; display: flex; align-items: center; gap: 6px; }
-        .search-box { background: white; display: flex; align-items: center; padding: 8px 12px; border-radius: 2px; }
-        .search-box input { border: none; outline: none; width: 100%; font-size: 14px; margin-left: 8px; }
-        .search-box i { color: #878787; }
-
-        /* Category Bar */
-        .category-bar { background: white; display: flex; overflow-x: auto; padding: 10px; gap: 15px; white-space: nowrap; border-bottom: 1px solid #e0e0e0; scrollbar-width: none; }
-        .category-bar::-webkit-scrollbar { display: none; }
-        .cat-item { text-align: center; font-size: 12px; cursor: pointer; color: #333; min-width: 65px; }
-
-        /* Swipeable Banner Carousel */
-        .banner-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 10px; padding: 12px 15px; }
-        .banner-carousel::-webkit-scrollbar { display: none; }
-        .banner-card { flex: 0 0 100%; scroll-snap-align: start; border-radius: 10px; overflow: hidden; height: 160px; position: relative; color: white; display: flex; flex-direction: column; justify-content: center; padding: 20px; background: linear-gradient(135deg, #1652c8, #2874f0); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-        .banner-card h2 { font-size: 20px; margin-bottom: 5px; }
-        .banner-card p { font-size: 13px; opacity: 0.9; }
-        .banner-dots { display: flex; justify-content: center; gap: 6px; margin-bottom: 10px; }
-        .dot { width: 6px; height: 6px; background: #c2c2c2; border-radius: 50%; }
-        .dot.active { background: #2874f0; width: 18px; border-radius: 3px; }
-
-        /* Sections */
-        .section { display: none; padding: 12px 15px; }
-        .section.active { display: block; }
-
-        /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .product-card { background: white; padding: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-card img { width: 100%; height: 140px; object-fit: contain; margin-bottom: 8px; }
-        .product-name { font-size: 13px; font-weight: 500; color: #212121; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .product-price { font-size: 15px; font-weight: bold; color: #388e3c; margin-bottom: 8px; }
-        .btn-buy { background: #ff9f00; color: white; border: none; padding: 7px 10px; width: 100%; font-weight: bold; font-size: 12px; border-radius: 2px; cursor: pointer; }
-
-        /* Product Detail & Reviews Page */
-        #product-detail { background: white; min-height: 90vh; padding: 15px; display: none; }
-        .detail-img { width: 100%; height: 260px; object-fit: contain; margin-bottom: 15px; }
-        .detail-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-        .detail-price { font-size: 22px; font-weight: bold; color: #388e3c; margin-bottom: 15px; }
-        .size-box { display: flex; gap: 10px; margin: 15px 0; }
-        .size-btn { padding: 8px 15px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer; }
-        .size-btn.selected { border-color: #2874f0; color: #2874f0; font-weight: bold; }
-        
-        .reviews-section { margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; }
-        .review-card { background: #f9f9f9; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
-        .review-author { font-weight: bold; font-size: 13px; color: #333; margin-bottom: 3px; }
-        .review-stars { color: #388e3c; font-size: 12px; margin-bottom: 5px; }
-        .review-text { font-size: 13px; color: #555; }
-
-        /* Payment, Support, Profile, Cart */
-        .payment-box, .support-box, .profile-box, .cart-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .payment-box img { width: 220px; height: 220px; object-fit: contain; margin: 15px 0; border: 1px solid #ddd; border-radius: 8px; padding: 5px; }
-        .upi-text { font-size: 15px; font-weight: bold; color: #2874f0; margin-bottom: 15px; }
-        .support-btn { display: block; background: #25d366; color: white; text-align: center; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-top: 15px; }
-        .support-btn.insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); margin-top: 10px; }
-        .profile-box input { width: 100%; padding: 10px; margin: 8px 0 15px 0; border: 1px solid #ccc; border-radius: 4px; }
-        .profile-box label { font-weight: 500; font-size: 14px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
-
-        /* Exact Flipkart Style Floating Bottom Navigation */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 8px 4px; box-shadow: 0 -2px 8px rgba(0,0,0,0.1); z-index: 1000; border-top-left-radius: 12px; border-top-right-radius: 12px; }
-        .nav-item { text-align: center; color: #565656; text-decoration: none; font-size: 11px; cursor: pointer; flex: 1; position: relative; padding: 4px 0; }
-        .nav-item i { display: block; font-size: 18px; margin-bottom: 3px; }
-        .nav-item.active { color: #2874f0; font-weight: 600; }
-        .nav-item.active .home-pill { background: #e8f0fe; width: 42px; height: 26px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2px; }
-        .cart-badge { position: absolute; top: 0; right: 22%; background: #ff3b30; color: white; font-size: 10px; padding: 1px 5px; border-radius: 50%; font-weight: bold; }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <div class="header-top">
-            <span class="logo-title"><i class="fa-solid fa-store"></i> ASHRAFUL UNIQUE SHOP</span>
-        </div>
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="search-input" placeholder="Search for 100+ Products, Brands..." onkeyup="filterProducts()">
-        </div>
-    </div>
-
-    <!-- Category Bar -->
-    <div class="category-bar">
-        <div class="cat-item" onclick="switchTab('home', document.querySelectorAll('.nav-item')[0])">
-            <i class="fa-solid fa-house" style="font-size:20px; color:#2874f0; display:block; margin:0 auto 3px;"></i>For You
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Shirt')">
-            <i class="fa-solid fa-shirt" style="font-size:20px; color:#ff9f00; display:block; margin:0 auto 3px;"></i>Fashion
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Earbuds')">
-            <i class="fa-solid fa-headphones" style="font-size:20px; color:#388e3c; display:block; margin:0 auto 3px;"></i>Electronics
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Shoes')">
-            <i class="fa-solid fa-shoe-prints" style="font-size:20px; color:#e91e63; display:block; margin:0 auto 3px;"></i>Footwear
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Watch')">
-            <i class="fa-solid fa-clock" style="font-size:20px; color:#9c27b0; display:block; margin:0 auto 3px;"></i>Watches
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Bag')">
-            <i class="fa-solid fa-bag-shopping" style="font-size:20px; color:#00bcd4; display:block; margin:0 auto 3px;"></i>Bags
-        </div>
-    </div>
-
-    <!-- Home Section -->
-    <div id="home" class="section active">
-        <!-- Swipeable Banners -->
-        <div class="banner-carousel" id="bannerSlider">
-            <div class="banner-card" style="background: linear-gradient(135deg, #1652c8, #2874f0);">
-                <h2>Mega Seasonal Sale!</h2>
-                <p>Get up to 50% OFF on Fashion & Accessories</p>
-            </div>
-            <div class="banner-card" style="background: linear-gradient(135deg, #388e3c, #107c41);">
-                <h2>Top Electronics Deals</h2>
-                <p>Smartwatches, Earbuds & Gadgets from ₹299</p>
-            </div>
-            <div class="banner-card" style="background: linear-gradient(135deg, #9c27b0, #673ab7);">
-                <h2>Free Delivery Nationwide</h2>
-                <p>Order Now & Pay via Secure UPI QR Code</p>
-            </div>
-        </div>
-        <div class="banner-dots">
-            <div class="dot active" id="dot0"></div>
-            <div class="dot" id="dot1"></div>
-            <div class="dot" id="dot2"></div>
-        </div>
-
-        <h3 style="margin-bottom: 12px; font-size: 16px;">Suggested For You (100+ Products)</h3>
-        <div class="product-grid" id="home-products"></div>
-    </div>
-
-    <!-- Categories Section -->
-    <div id="categories" class="section">
-        <h3 style="margin-bottom: 12px; font-size: 16px;">All Categories & Products</h3>
-        <div class="product-grid" id="shop-products"></div>
-    </div>
-
-    <!-- Product Detail & Reviews View -->
-    <div id="product-detail">
-        <button onclick="closeDetail()" style="background:none; border:none; font-size:15px; color:#2874f0; cursor:pointer; margin-bottom:12px; font-weight:600;"><i class="fa-solid fa-arrow-left"></i> Back to Store</button>
-        <img id="det-img" class="detail-img" src="" alt="">
-        <div id="det-title" class="detail-title"></div>
-        <div id="det-price" class="detail-price"></div>
-        <p style="font-size: 13px; color: #666; margin-bottom: 8px;">Select Size:</p>
-        <div class="size-box">
-            <button class="size-btn selected" onclick="selectSize(this)">Free Size</button>
-            <button class="size-btn" onclick="selectSize(this)">S</button>
-            <button class="size-btn" onclick="selectSize(this)">M</button>
-            <button class="size-btn" onclick="selectSize(this)">L</button>
-            <button class="size-btn" onclick="selectSize(this)">XL</button>
-        </div>
-        <button class="btn-buy" style="padding: 12px; font-size: 15px; margin-top: 10px;" onclick="addToCartFromDetail()">Add to Cart</button>
-        <button class="btn-buy" style="padding: 12px; font-size: 15px; margin-top: 10px; background: #fb641b;" onclick="buyNowDirect()">Buy Now</button>
-        
-        <!-- Customer Reviews Section -->
-        <div class="reviews-section">
-            <h3 style="font-size: 16px; margin-bottom: 12px;">Customer Ratings & Reviews (4.8 ★)</h3>
-            <div class="review-card">
-                <div class="review-author">Rahul Sharma</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Amazing product quality! Fast delivery and exact same item as shown in pictures. Highly recommended.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Priya Verma</div>
-                <div class="review-stars">★★★★☆ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Good material and comfortable fit. Value for money store! Will order again.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Amit Kumar</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Superb experience shopping here. UPI payment was very smooth and support team replied instantly on WhatsApp.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Sneha Das</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Loved the packaging and overall product finish. 10/10 service!</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Payment Section -->
-    <div id="payment" class="section">
-        <div class="payment-box" style="text-align: center;">
-            <h3>Scan & Pay via any UPI App</h3>
-            <p style="font-size: 13px; color: #666; margin-top: 5px;">Ashraful Hussain</p>
-            <img src="https://i.ibb.co/3ykf168J/1000070389.png" alt="Payment QR Code">
-            <div class="upi-text">UPI ID: ashraful6807@okaxis</div>
-            <a href="https://wa.me/917578868344?text=Hello%20Ashraful%20Unique%20Shop,%20I%20have%20completed%20the%20payment." class="support-btn" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Send Payment Screenshot on WhatsApp
-            </a>
-        </div>
-    </div>
-
-    <!-- Support Section -->
-    <div id="support" class="section">
-        <div class="support-box">
-            <h3>Customer Support</h3>
-            <p style="margin-top: 10px; font-size: 14px; color: #555;">Need help? Contact us directly:</p>
-            <p style="margin-top: 15px; font-size: 14px;"><strong>Email:</strong> ashrafuldexex@gamil.com</p>
-            <p style="margin-top: 5px; font-size: 14px;"><strong>Phone / WhatsApp:</strong> 7578868344</p>
-            <p style="margin-top: 5px; font-size: 14px;"><strong>Instagram:</strong> @ashaful__7</p>
-            <a href="https://wa.me/917578868344?text=Hello%20Ashraful%20Unique%20Shop,%20I%20need%20help." class="support-btn" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
-            </a>
-            <a href="https://instagram.com/ashaful__7" class="support-btn insta" target="_blank">
-                <i class="fa-brands fa-instagram"></i> Visit Instagram
-            </a>
-        </div>
-    </div>
-
-    <!-- Profile Section -->
-    <div id="profile" class="section">
-        <div class="profile-box">
-            <h3>My Profile & Address</h3>
-            <label>Full Name</label>
-            <input type="text" id="cust-name" placeholder="Enter your name">
-            <label>Mobile Number</label>
-            <input type="text" id="cust-phone" placeholder="Enter mobile number">
-            <label>Delivery Address</label>
-            <input type="text" id="cust-address" placeholder="Enter house no, street, city, pincode">
-            <button class="btn-buy" onclick="saveProfile()">Save Address</button>
-            <p id="save-msg" style="color: green; font-size: 13px; margin-top: 10px; text-align: center;"></p>
-        </div>
-    </div>
-
-    <!-- Cart Section -->
-    <div id="cart" class="section">
-        <div class="cart-box">
-            <h3>My Shopping Cart</h3>
-            <div id="cart-items" style="margin: 15px 0;"></div>
-            <div id="cart-total" style="font-weight: bold; font-size: 16px; margin: 15px 0;"></div>
-            <button class="btn-buy" onclick="switchTab('payment', document.querySelectorAll('.nav-item')[2])">Proceed to Payment</button>
-        </div>
-    </div>
-
-    <!-- Bottom Navigation Bar (Exact Flipkart Style from Screenshot) -->
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('home', this)">
-            <div class="home-pill"><i class="fa-solid fa-house" style="color:#2874f0;"></i></div>
-            Home
-        </div>
-        <div class="nav-item" onclick="switchTab('support', this)">
-            <i class="fa-solid fa-play"></i>
-            Play
-        </div>
-        <div class="nav-item" onclick="switchTab('categories', this)">
-            <i class="fa-solid fa-table-cells"></i>
-            Categories
-        </div>
-        <div class="nav-item" onclick="switchTab('profile', this)">
-            <i class="fa-solid fa-user"></i>
-            Account
-        </div>
-        <div class="nav-item" onclick="switchTab('cart', this)">
-            <i class="fa-solid fa-cart-shopping"></i>
-            Cart
-            <span class="cart-badge" id="cart-count">0</span>
-        </div>
-    </div>
-
-    <script>
-        // Generated 100+ Products List
-        const baseProducts = [
-            { name: "Cotton Plain T-Shirt", price: 199, img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=300" },
-            { name: "Casual Formal Shirt", price: 499, img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300" },
-            { name: "Slim Fit Denim Jeans", price: 799, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=300" },
-            { name: "Premium Winter Hoodie", price: 999, img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300" },
-            { name: "Stylish Sports Shoes", price: 899, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" },
-            { name: "Wireless Bluetooth Earbuds", price: 699, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" },
-            { name: "Smart Fitness Watch", price: 1299, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" },
-            { name: "Classic Leather Wallet", price: 299, img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" },
-            { name: "Designer Sunglasses", price: 449, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300" },
-            { name: "Casual Backpack", price: 749, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" }
-        ];
-
-        let products = [];
-        let idCounter = 1;
-        const categoriesList = ["Classic", "Trendy", "Super", "Royal", "Elite", "Pro", "New", "Modern", "Designer", "Exclusive"];
-        
-        // Generating 100+ unique products dynamically
-        categoriesList.forEach(prefix => {
-            baseProducts.forEach(bp => {
-                products.push({
-                    id: idCounter++,
-                    name: `${prefix} ${bp.name}`,
-                    price: bp.price + (idCounter % 5) * 50,
-                    img: bp.img
-                });
-            });
-        });
-
-        let cart = [];
-        let currentSelectedProduct = null;
-
-        function displayProducts(productList, elementId) {
-            let html = "";
-            productList.forEach(p => {
-                html += `
-                    <div class="product-card" onclick="openDetail(${p.id})">
-                        <img src="${p.img}" alt="${p.name}">
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-price">₹${p.price}</div>
-                        <button class="btn-buy" onclick="event.stopPropagation(); quickBuy(${p.id})">Buy Now</button>
-                    </div>
-                `;
-            });
-            document.getElementById(elementId).innerHTML = html;
-        }
-
-        function loadAllProducts() {
-            displayProducts(products, 'home-products');
-            displayProducts(products, 'shop-products');
-        }
-
-        function openDetail(id) {
-            currentSelectedProduct = products.find(p => p.id === id);
-            document.getElementById('det-img').src = currentSelectedProduct.img;
-            document.getElementById('det-title').innerText = currentSelectedProduct.name;
-            document.getElementById('det-price').innerText = "₹" + currentSelectedProduct.price;
-            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById('product-detail').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function closeDetail() {
-            document.getElementById('product-detail').style.display = 'none';
-            document.getElementById('home').classList.add('active');
-        }
-
-        function selectSize(btn) {
-            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-        }
-
-        function addToCartFromDetail() {
-            if (currentSelectedProduct) {
-                cart.push(currentSelectedProduct);
-                updateCartCount();
-                alert(currentSelectedProduct.name + " added to cart!");
-                closeDetail();
-            }
-        }
-
-        function buyNowDirect() {
-            if (currentSelectedProduct) {
-                cart = [currentSelectedProduct];
-                updateCartCount();
-                closeDetail();
-                switchTab('payment', document.querySelectorAll('.nav-item')[2]);
-            }
-        }
-
-        function quickBuy(id) {
-            let prod = products.find(p => p.id === id);
-            cart = [prod];
-            updateCartCount();
-            switchTab('payment', document.querySelectorAll('.nav-item')[2]);
-        }
-
-        function updateCartCount() {
-            document.getElementById('cart-count').innerText = cart.length;
-            let html = "";
-            let total = 0;
-            if(cart.length === 0) {
-                html = "<p style='color:#777; text-align:center;'>Your cart is empty.</p>";
-            } else {
-                cart.forEach(item => {
-                    total += item.price;
-                    html += `<div class="cart-item"><span>${item.name}</span><span style="font-weight:bold; color:#388e3c;">₹${item.price}</span></div>`;
-                });
-            }
-            document.getElementById('cart-items').innerHTML = html;
-            document.getElementById('cart-total').innerText = cart.length > 0 ? "Total Amount: ₹" + total : "";
-        }
-
-        function filterProducts() {
-            let query = document.getElementById('search-input').value.toLowerCase();
-            let filtered = products.filter(p => p.name.toLowerCase().includes(query));
-            displayProducts(filtered, 'home-products');
-            displayProducts(filtered, 'shop-products');
-        }
-
-        function filterByCategory(catName) {
-            let filtered = products.filter(p => p.name.toLowerCase().includes(catName.toLowerCase()));
-            displayProducts(filtered, 'home-products');
-            displayProducts(filtered, 'shop-products');
-            switchTab('home', document.querySelectorAll('.nav-item')[0]);
-        }
-
-        function switchTab(tabId, element) {
-            document.getElementById('product-detail').style.display = 'none';
-            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            if(element) element.classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function saveProfile() {
-            let name = document.getElementById('cust-name').value;
-            let phone = document.getElementById('cust-phone').value;
-            let address = document.getElementById('cust-address').value;
-            if(name && phone && address) {
-                localStorage.setItem('customer_name', name);
-                localStorage.setItem('customer_phone', phone);
-                localStorage.setItem('customer_address', address);
-                document.getElementById('save-msg').innerText = "Address saved successfully!";
-            } else {
-                alert("Please fill all details!");
-            }
-        }
-
-        // Banner Slider Dots Tracker
-        const bannerSlider = document.getElementById('bannerSlider');
-        bannerSlider.addEventListener('scroll', () => {
-            let index = Math.round(bannerSlider.scrollLeft / bannerSlider.clientWidth);
-            document.querySelectorAll('.dot').forEach((d, i) => {
-                d.classList.toggle('active', i === index);
-            });
-        });
-
-        window.onload = function() {
-            loadAllProducts();
-            updateCartCount();
-            if(localStorage.getItem('customer_name')) {
-                document.getElementById('cust-name').value = localStorage.getItem('customer_name');
-                document.getElementById('cust-phone').value = localStorage.getItem('customer_phone');
-                document.getElementById('cust-address').value = localStorage.getItem('customer_address');
-            }
-        }
-    </script>
-</body>
-</html>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASHRAFUL UNIQUE SHOP</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f1f3f6; color: #212121; padding-bottom: 85px; overflow-x: hidden; }
-        
-        /* Header */
-        .header { background-color: #2874f0; color: white; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .logo-title { font-size: 18px; font-weight: bold; font-style: italic; display: flex; align-items: center; gap: 6px; }
-        .search-box { background: white; display: flex; align-items: center; padding: 8px 12px; border-radius: 2px; }
-        .search-box input { border: none; outline: none; width: 100%; font-size: 14px; margin-left: 8px; }
-        .search-box i { color: #878787; }
-
-        /* Category Bar */
-        .category-bar { background: white; display: flex; overflow-x: auto; padding: 10px; gap: 15px; white-space: nowrap; border-bottom: 1px solid #e0e0e0; scrollbar-width: none; }
-        .category-bar::-webkit-scrollbar { display: none; }
-        .cat-item { text-align: center; font-size: 12px; cursor: pointer; color: #333; min-width: 65px; }
-
-        /* Swipeable Banner Carousel */
-        .banner-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 10px; padding: 12px 15px; }
-        .banner-carousel::-webkit-scrollbar { display: none; }
-        .banner-card { flex: 0 0 100%; scroll-snap-align: start; border-radius: 10px; overflow: hidden; height: 160px; position: relative; color: white; display: flex; flex-direction: column; justify-content: center; padding: 20px; background: linear-gradient(135deg, #1652c8, #2874f0); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-        .banner-card h2 { font-size: 20px; margin-bottom: 5px; }
-        .banner-card p { font-size: 13px; opacity: 0.9; }
-        .banner-dots { display: flex; justify-content: center; gap: 6px; margin-bottom: 10px; }
-        .dot { width: 6px; height: 6px; background: #c2c2c2; border-radius: 50%; }
-        .dot.active { background: #2874f0; width: 18px; border-radius: 3px; }
-
-        /* Sections */
-        .section { display: none; padding: 12px 15px; }
-        .section.active { display: block; }
-
-        /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .product-card { background: white; padding: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-card img { width: 100%; height: 140px; object-fit: contain; margin-bottom: 8px; }
-        .product-name { font-size: 13px; font-weight: 500; color: #212121; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .product-price { font-size: 15px; font-weight: bold; color: #388e3c; margin-bottom: 8px; }
-        .btn-buy { background: #ff9f00; color: white; border: none; padding: 7px 10px; width: 100%; font-weight: bold; font-size: 12px; border-radius: 2px; cursor: pointer; }
-
-        /* Product Detail & Reviews Page */
-        #product-detail { background: white; min-height: 90vh; padding: 15px; display: none; }
-        .detail-img { width: 100%; height: 260px; object-fit: contain; margin-bottom: 15px; }
-        .detail-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-        .detail-price { font-size: 22px; font-weight: bold; color: #388e3c; margin-bottom: 15px; }
-        .size-box { display: flex; gap: 10px; margin: 15px 0; }
-        .size-btn { padding: 8px 15px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer; }
-        .size-btn.selected { border-color: #2874f0; color: #2874f0; font-weight: bold; }
-        
-        .reviews-section { margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; }
-        .review-card { background: #f9f9f9; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
-        .review-author { font-weight: bold; font-size: 13px; color: #333; margin-bottom: 3px; }
-        .review-stars { color: #388e3c; font-size: 12px; margin-bottom: 5px; }
-        .review-text { font-size: 13px; color: #555; }
-
-        /* Payment, Support, Profile, Cart */
-        .payment-box, .support-box, .profile-box, .cart-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .payment-box img { width: 220px; height: 220px; object-fit: contain; margin: 15px 0; border: 1px solid #ddd; border-radius: 8px; padding: 5px; }
-        .upi-text { font-size: 15px; font-weight: bold; color: #2874f0; margin-bottom: 15px; }
-        .support-btn { display: block; background: #25d366; color: white; text-align: center; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-top: 15px; }
-        .support-btn.insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); margin-top: 10px; }
-        .profile-box input { width: 100%; padding: 10px; margin: 8px 0 15px 0; border: 1px solid #ccc; border-radius: 4px; }
-        .profile-box label { font-weight: 500; font-size: 14px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
-
-        /* Exact Flipkart Style Floating Bottom Navigation */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 8px 4px; box-shadow: 0 -2px 8px rgba(0,0,0,0.1); z-index: 1000; border-top-left-radius: 12px; border-top-right-radius: 12px; }
-        .nav-item { text-align: center; color: #565656; text-decoration: none; font-size: 11px; cursor: pointer; flex: 1; position: relative; padding: 4px 0; }
-        .nav-item i { display: block; font-size: 18px; margin-bottom: 3px; }
-        .nav-item.active { color: #2874f0; font-weight: 600; }
-        .nav-item.active .home-pill { background: #e8f0fe; width: 42px; height: 26px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2px; }
-        .cart-badge { position: absolute; top: 0; right: 22%; background: #ff3b30; color: white; font-size: 10px; padding: 1px 5px; border-radius: 50%; font-weight: bold; }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <div class="header-top">
-            <span class="logo-title"><i class="fa-solid fa-store"></i> ASHRAFUL UNIQUE SHOP</span>
-        </div>
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="search-input" placeholder="Search for 100+ Products, Brands..." onkeyup="filterProducts()">
-        </div>
-    </div>
-
-    <!-- Category Bar -->
-    <div class="category-bar">
-        <div class="cat-item" onclick="switchTab('home', document.querySelectorAll('.nav-item')[0])">
-            <i class="fa-solid fa-house" style="font-size:20px; color:#2874f0; display:block; margin:0 auto 3px;"></i>For You
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Shirt')">
-            <i class="fa-solid fa-shirt" style="font-size:20px; color:#ff9f00; display:block; margin:0 auto 3px;"></i>Fashion
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Earbuds')">
-            <i class="fa-solid fa-headphones" style="font-size:20px; color:#388e3c; display:block; margin:0 auto 3px;"></i>Electronics
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Shoes')">
-            <i class="fa-solid fa-shoe-prints" style="font-size:20px; color:#e91e63; display:block; margin:0 auto 3px;"></i>Footwear
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Watch')">
-            <i class="fa-solid fa-clock" style="font-size:20px; color:#9c27b0; display:block; margin:0 auto 3px;"></i>Watches
-        </div>
-        <div class="cat-item" onclick="filterByCategory('Bag')">
-            <i class="fa-solid fa-bag-shopping" style="font-size:20px; color:#00bcd4; display:block; margin:0 auto 3px;"></i>Bags
-        </div>
-    </div>
-
-    <!-- Home Section -->
-    <div id="home" class="section active">
-        <!-- Swipeable Banners -->
-        <div class="banner-carousel" id="bannerSlider">
-            <div class="banner-card" style="background: linear-gradient(135deg, #1652c8, #2874f0);">
-                <h2>Mega Seasonal Sale!</h2>
-                <p>Get up to 50% OFF on Fashion & Accessories</p>
-            </div>
-            <div class="banner-card" style="background: linear-gradient(135deg, #388e3c, #107c41);">
-                <h2>Top Electronics Deals</h2>
-                <p>Smartwatches, Earbuds & Gadgets from ₹299</p>
-            </div>
-            <div class="banner-card" style="background: linear-gradient(135deg, #9c27b0, #673ab7);">
-                <h2>Free Delivery Nationwide</h2>
-                <p>Order Now & Pay via Secure UPI QR Code</p>
-            </div>
-        </div>
-        <div class="banner-dots">
-            <div class="dot active" id="dot0"></div>
-            <div class="dot" id="dot1"></div>
-            <div class="dot" id="dot2"></div>
-        </div>
-
-        <h3 style="margin-bottom: 12px; font-size: 16px;">Suggested For You (100+ Products)</h3>
-        <div class="product-grid" id="home-products"></div>
-    </div>
-
-    <!-- Categories Section -->
-    <div id="categories" class="section">
-        <h3 style="margin-bottom: 12px; font-size: 16px;">All Categories & Products</h3>
-        <div class="product-grid" id="shop-products"></div>
-    </div>
-
-    <!-- Product Detail & Reviews View -->
-    <div id="product-detail">
-        <button onclick="closeDetail()" style="background:none; border:none; font-size:15px; color:#2874f0; cursor:pointer; margin-bottom:12px; font-weight:600;"><i class="fa-solid fa-arrow-left"></i> Back to Store</button>
-        <img id="det-img" class="detail-img" src="" alt="">
-        <div id="det-title" class="detail-title"></div>
-        <div id="det-price" class="detail-price"></div>
-        <p style="font-size: 13px; color: #666; margin-bottom: 8px;">Select Size:</p>
-        <div class="size-box">
-            <button class="size-btn selected" onclick="selectSize(this)">Free Size</button>
-            <button class="size-btn" onclick="selectSize(this)">S</button>
-            <button class="size-btn" onclick="selectSize(this)">M</button>
-            <button class="size-btn" onclick="selectSize(this)">L</button>
-            <button class="size-btn" onclick="selectSize(this)">XL</button>
-        </div>
-        <button class="btn-buy" style="padding: 12px; font-size: 15px; margin-top: 10px;" onclick="addToCartFromDetail()">Add to Cart</button>
-        <button class="btn-buy" style="padding: 12px; font-size: 15px; margin-top: 10px; background: #fb641b;" onclick="buyNowDirect()">Buy Now</button>
-        
-        <!-- Customer Reviews Section -->
-        <div class="reviews-section">
-            <h3 style="font-size: 16px; margin-bottom: 12px;">Customer Ratings & Reviews (4.8 ★)</h3>
-            <div class="review-card">
-                <div class="review-author">Rahul Sharma</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Amazing product quality! Fast delivery and exact same item as shown in pictures. Highly recommended.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Priya Verma</div>
-                <div class="review-stars">★★★★☆ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Good material and comfortable fit. Value for money store! Will order again.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Amit Kumar</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Superb experience shopping here. UPI payment was very smooth and support team replied instantly on WhatsApp.</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Sneha Das</div>
-                <div class="review-stars">★★★★★ <span style="color:#777; font-size:11px;">Certified Buyer</span></div>
-                <div class="review-text">Loved the packaging and overall product finish. 10/10 service!</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Payment Section -->
-    <div id="payment" class="section">
-        <div class="payment-box" style="text-align: center;">
-            <h3>Scan & Pay via any UPI App</h3>
-            <p style="font-size: 13px; color: #666; margin-top: 5px;">Ashraful Hussain</p>
-            <img src="https://i.ibb.co/3ykf168J/1000070389.png" alt="Payment QR Code">
-            <div class="upi-text">UPI ID: ashraful6807@okaxis</div>
-            <a href="https://wa.me/917578868344?text=Hello%20Ashraful%20Unique%20Shop,%20I%20have%20completed%20the%20payment." class="support-btn" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Send Payment Screenshot on WhatsApp
-            </a>
-        </div>
-    </div>
-
-    <!-- Support Section -->
-    <div id="support" class="section">
-        <div class="support-box">
-            <h3>Customer Support</h3>
-            <p style="margin-top: 10px; font-size: 14px; color: #555;">Need help? Contact us directly:</p>
-            <p style="margin-top: 15px; font-size: 14px;"><strong>Email:</strong> ashrafuldexex@gamil.com</p>
-            <p style="margin-top: 5px; font-size: 14px;"><strong>Phone / WhatsApp:</strong> 7578868344</p>
-            <p style="margin-top: 5px; font-size: 14px;"><strong>Instagram:</strong> @ashaful__7</p>
-            <a href="https://wa.me/917578868344?text=Hello%20Ashraful%20Unique%20Shop,%20I%20need%20help." class="support-btn" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
-            </a>
-            <a href="https://instagram.com/ashaful__7" class="support-btn insta" target="_blank">
-                <i class="fa-brands fa-instagram"></i> Visit Instagram
-            </a>
-        </div>
-    </div>
-
-    <!-- Profile Section -->
-    <div id="profile" class="section">
-        <div class="profile-box">
-            <h3>My Profile & Address</h3>
-            <label>Full Name</label>
-            <input type="text" id="cust-name" placeholder="Enter your name">
-            <label>Mobile Number</label>
-            <input type="text" id="cust-phone" placeholder="Enter mobile number">
-            <label>Delivery Address</label>
-            <input type="text" id="cust-address" placeholder="Enter house no, street, city, pincode">
-            <button class="btn-buy" onclick="saveProfile()">Save Address</button>
-            <p id="save-msg" style="color: green; font-size: 13px; margin-top: 10px; text-align: center;"></p>
-        </div>
-    </div>
-
-    <!-- Cart Section -->
-    <div id="cart" class="section">
-        <div class="cart-box">
-            <h3>My Shopping Cart</h3>
-            <div id="cart-items" style="margin: 15px 0;"></div>
-            <div id="cart-total" style="font-weight: bold; font-size: 16px; margin: 15px 0;"></div>
-            <button class="btn-buy" onclick="switchTab('payment', document.querySelectorAll('.nav-item')[2])">Proceed to Payment</button>
-        </div>
-    </div>
-
-    <!-- Bottom Navigation Bar (Exact Flipkart Style from Screenshot) -->
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('home', this)">
-            <div class="home-pill"><i class="fa-solid fa-house" style="color:#2874f0;"></i></div>
-            Home
-        </div>
-        <div class="nav-item" onclick="switchTab('support', this)">
-            <i class="fa-solid fa-play"></i>
-            Play
-        </div>
-        <div class="nav-item" onclick="switchTab('categories', this)">
-            <i class="fa-solid fa-table-cells"></i>
-            Categories
-        </div>
-        <div class="nav-item" onclick="switchTab('profile', this)">
-            <i class="fa-solid fa-user"></i>
-            Account
-        </div>
-        <div class="nav-item" onclick="switchTab('cart', this)">
-            <i class="fa-solid fa-cart-shopping"></i>
-            Cart
-            <span class="cart-badge" id="cart-count">0</span>
-        </div>
-    </div>
-
-    <script>
-        // Generated 100+ Products List
-        const baseProducts = [
-            { name: "Cotton Plain T-Shirt", price: 199, img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=300" },
-            { name: "Casual Formal Shirt", price: 499, img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300" },
-            { name: "Slim Fit Denim Jeans", price: 799, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=300" },
-            { name: "Premium Winter Hoodie", price: 999, img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300" },
-            { name: "Stylish Sports Shoes", price: 899, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" },
-            { name: "Wireless Bluetooth Earbuds", price: 699, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" },
-            { name: "Smart Fitness Watch", price: 1299, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" },
-            { name: "Classic Leather Wallet", price: 299, img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" },
-            { name: "Designer Sunglasses", price: 449, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300" },
-            { name: "Casual Backpack", price: 749, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" }
-        ];
-
-        let products = [];
-        let idCounter = 1;
-        const categoriesList = ["Classic", "Trendy", "Super", "Royal", "Elite", "Pro", "New", "Modern", "Designer", "Exclusive"];
-        
-        // Generating 100+ unique products dynamically
-        categoriesList.forEach(prefix => {
-            baseProducts.forEach(bp => {
-                products.push({
-                    id: idCounter++,
-                    name: `${prefix} ${bp.name}`,
-                    price: bp.price + (idCounter % 5) * 50,
-                    img: bp.img
-                });
-            });
-        });
-
-        let cart = [];
-        let currentSelectedProduct = null;
-
-        function displayProducts(productList, elementId) {
-            let html = "";
-            productList.forEach(p => {
-                html += `
-                    <div class="product-card" onclick="openDetail(${p.id})">
-                        <img src="${p.img}" alt="${p.name}">
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-price">₹${p.price}</div>
-                        <button class="btn-buy" onclick="event.stopPropagation(); quickBuy(${p.id})">Buy Now</button>
-                    </div>
-                `;
-            });
-            document.getElementById(elementId).innerHTML = html;
-        }
-
-        function loadAllProducts() {
-            displayProducts(products, 'home-products');
-            displayProducts(products, 'shop-products');
-        }
-
-        function openDetail(id) {
-            currentSelectedProduct = products.find(p => p.id === id);
-            document.getElementById('det-img').src = currentSelectedProduct.img;
-            document.getElementById('det-title').innerText = currentSelectedProduct.name;
-            document.getElementById('det-price').innerText = "₹" + currentSelectedProduct.price;
-            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById('product-detail').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function closeDetail() {
-            document.getElementById('product-detail').style.display = 'none';
-            document.getElementById('home').classList.add('active');
-        }
-
-        function selectSize(btn) {
-            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-        }
-
-        function addToCartFromDetail() {
-            if (currentSelectedProduct) {
-                cart.push(currentSelectedProduct);
-                updateCartCount();
-                alert(currentSelectedProduct.name + " added to cart!");
-                closeDetail();
-            }
-        }
-
-        function buyNowDirect() {
-            if (currentSelectedProduct) {
-                cart = [currentSelectedProduct];
-                updateCartCount();
-                closeDetail();
-                switchTab('payment', document.querySelectorAll('.nav-item')[2]);
-            }
-        }
-
-        function quickBuy(id) {
-            let prod = products.find(p => p.id === id);
-            cart = [prod];
-            updateCartCount();
-            switchTab('payment', document.querySelectorAll('.nav-item')[2]);
-        }
-
-        function updateCartCount() {
-            document.getElementById('cart-count').innerText = cart.length;
-            let html = "";
-            let total = 0;
-            if(cart.length === 0) {
-                html = "<p style='color:#777; text-align:center;'>Your cart is empty.</p>";
-            } else {
-                cart.forEach(item => {
-                    total += item.price;
-                    html += `<div class="cart-item"><span>${item.name}</span><span style="font-weight:bold; color:#388e3c;">₹${item.price}</span></div>`;
-                });
-            }
-            document.getElementById('cart-items').innerHTML = html;
-            document.getElementById('cart-total').innerText = cart.length > 0 ? "Total Amount: ₹" + total : "";
-        }
-
-        function filterProducts() {
-            let query = document.getElementById('search-input').value.toLowerCase();
-            let filtered = products.filter(p => p.name.toLowerCase().includes(query));
-            displayProducts(filtered, 'home-products');
-            displayProducts(filtered, 'shop-products');
-        }
-
-        function filterByCategory(catName) {
-            let filtered = products.filter(p => p.name.toLowerCase().includes(catName.toLowerCase()));
-            displayProducts(filtered, 'home-products');
-            displayProducts(filtered, 'shop-products');
-            switchTab('home', document.querySelectorAll('.nav-item')[0]);
-        }
-
-        function switchTab(tabId, element) {
-            document.getElementById('product-detail').style.display = 'none';
-            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            if(element) element.classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function saveProfile() {
-            let name = document.getElementById('cust-name').value;
-            let phone = document.getElementById('cust-phone').value;
-            let address = document.getElementById('cust-address').value;
-            if(name && phone && address) {
-                localStorage.setItem('customer_name', name);
-                localStorage.setItem('customer_phone', phone);
-                localStorage.setItem('customer_address', address);
-                document.getElementById('save-msg').innerText = "Address saved successfully!";
-            } else {
-                alert("Please fill all details!");
-            }
-        }
-
-        // Banner Slider Dots Tracker
-        const bannerSlider = document.getElementById('bannerSlider');
-        bannerSlider.addEventListener('scroll', () => {
-            let index = Math.round(bannerSlider.scrollLeft / bannerSlider.clientWidth);
-            document.querySelectorAll('.dot').forEach((d, i) => {
-                d.classList.toggle('active', i === index);
-            });
-        });
 
         window.onload = function() {
             loadAllProducts();
