@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASHRAFUL UNIQUE SHOP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -12,322 +13,370 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
+            background-color: #f1f3f6;
+            color: #212121;
+            padding-bottom: 70px; /* Space for fixed bottom nav */
         }
-        .app-container {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 24px;
-            padding: 25px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
+        /* Flipkart Style Header */
         .header {
-            text-align: center;
-            margin-bottom: 20px;
+            background-color: #2874f0;
+            color: white;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .logo {
-            width: 75px;
-            height: 75px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #00dbde, #fc00ff);
+        .header-top {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            font-size: 38px;
-            margin: 0 auto 12px auto;
-            box-shadow: 0 0 20px rgba(0, 219, 222, 0.6);
+            margin-bottom: 8px;
         }
-        h1 {
-            font-size: 22px;
-            letter-spacing: 1px;
-            background: linear-gradient(45deg, #00dbde, #fc00ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo-title {
+            font-size: 18px;
+            font-weight: bold;
+            font-style: italic;
         }
-        .subtitle {
-            font-size: 12px;
-            color: #bbb;
-            margin-top: 4px;
+        .search-box {
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 2px;
         }
-        .nav-tabs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+            margin-left: 8px;
         }
-        .tab-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ddd;
-            padding: 10px 5px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
+        .search-box i {
+            color: #878787;
         }
-        .tab-btn.active, .tab-btn:hover {
-            background: linear-gradient(45deg, #00dbde, #fc00ff);
-            color: #fff;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(0, 219, 222, 0.4);
-        }
+
+        /* Content Sections */
         .section {
             display: none;
-            animation: fadeIn 0.3s ease;
+            padding: 15px;
         }
         .section.active {
             display: block;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .product-card {
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 12px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .prod-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .prod-icon {
-            font-size: 28px;
-            background: rgba(255,255,255,0.08);
-            padding: 10px;
-            border-radius: 12px;
-        }
-        .prod-title {
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .prod-price {
-            font-size: 13px;
-            color: #00dbde;
-            font-weight: bold;
-            margin-top: 2px;
-        }
-        .buy-btn {
-            background: linear-gradient(45deg, #00dbde, #fc00ff);
-            border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
+
+        /* Home Banners & Categories */
+        .banner {
+            background: linear-gradient(135deg, #2874f0, #1652c8);
             color: white;
-            font-weight: bold;
-            font-size: 12px;
-            cursor: pointer;
-        }
-        .info-card {
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 14px;
-            padding: 16px;
-            font-size: 13px;
-            line-height: 1.6;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .upi-box {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px dashed #00dbde;
-            padding: 12px;
-            border-radius: 10px;
-            margin: 12px 0;
-            text-align: center;
-            font-size: 14px;
-            color: #00dbde;
-            font-weight: bold;
-            word-break: break-all;
-        }
-        .order-alert {
-            background: rgba(0, 255, 136, 0.15);
-            border: 1px solid #00ff88;
-            color: #00ff88;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 12px;
+            padding: 20px;
+            border-radius: 8px;
             margin-bottom: 15px;
             text-align: center;
-            display: none;
         }
-        .footer {
+        .banner h2 { font-size: 20px; margin-bottom: 5px; }
+        .banner p { font-size: 13px; opacity: 0.9; }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .product-card {
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             text-align: center;
-            margin-top: 20px;
+            cursor: pointer;
+        }
+        .product-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+        .product-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #212121;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .product-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #388e3c;
+            margin-bottom: 8px;
+        }
+        .btn-buy {
+            background: #ff9f00;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            width: 100%;
+            font-weight: bold;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        /* Payment Section */
+        .payment-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .payment-box img {
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 5px;
+        }
+        .upi-text {
+            font-size: 15px;
+            font-weight: bold;
+            color: #2874f0;
+            margin-bottom: 15px;
+        }
+
+        /* Support Section */
+        .support-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .support-btn {
+            display: block;
+            background: #25d366;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Profile Section */
+        .profile-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .profile-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .profile-box label {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Fixed Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            color: #878787;
+            text-decoration: none;
             font-size: 11px;
-            color: #777;
+            cursor: pointer;
+            flex: 1;
+        }
+        .nav-item i {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+        .nav-item.active {
+            color: #2874f0;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <div class="header">
-            <div class="logo">🎁</div>
-            <h1>ASHRAFUL UNIQUE SHOP</h1>
-            <p class="subtitle">Welcome to Our Official Digital & Fashion Store</p>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-top">
+            <span class="logo-title"><i class="fa-solid fa-store"></i> ASHRAFUL UNIQUE SHOP</span>
         </div>
-
-        <div id="orderSuccess" class="order-alert"></div>
-
-        <!-- TOP NAVIGATION TABS -->
-        <div class="nav-tabs">
-            <button class="tab-btn active" onclick="openTab('shop', this)">🛍️ Shop</button>
-            <button class="tab-btn" onclick="openTab('payment', this)">💳 Payment</button>
-            <button class="tab-btn" onclick="openTab('refer', this)">🎁 Refer</button>
-            <button class="tab-btn" onclick="openTab('terms', this)">📜 Terms</button>
-            <button class="tab-btn" onclick="openTab('profile', this)">👤 Profile</button>
-            <button class="tab-btn" onclick="openTab('support', this)">💬 Support</button>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search for Products, Brands and More">
         </div>
+    </div>
 
-        <!-- SHOP SECTION -->
-        <div id="shop" class="section active">
-            <div class="product-card">
-                <div class="prod-info">
-                    <div class="prod-icon">👕</div>
-                    <div>
-                        <div class="prod-title">Cotton Plain T-Shirt</div>
-                        <div class="prod-price">₹199</div>
-                    </div>
-                </div>
-                <button class="buy-btn" onclick="placeOrder('Cotton Plain T-Shirt', 199)">Buy Now</button>
-            </div>
-
-            <div class="product-card">
-                <div class="prod-info">
-                    <div class="prod-icon">👔</div>
-                    <div>
-                        <div class="prod-title">Casual Formal Shirt</div>
-                        <div class="prod-price">₹499</div>
-                    </div>
-                </div>
-                <button class="buy-btn" onclick="placeOrder('Casual Formal Shirt', 499)">Buy Now</button>
-            </div>
-
-            <div class="product-card">
-                <div class="prod-info">
-                    <div class="prod-icon">👖</div>
-                    <div>
-                        <div class="prod-title">Slim Fit Denim Jeans</div>
-                        <div class="prod-price">₹799</div>
-                    </div>
-                </div>
-                <button class="buy-btn" onclick="placeOrder('Slim Fit Denim Jeans', 799)">Buy Now</button>
-            </div>
-
-            <div class="product-card">
-                <div class="prod-info">
-                    <div class="prod-icon">🧥</div>
-                    <div>
-                        <div class="prod-title">Premium Winter Hoodie</div>
-                        <div class="prod-price">₹999</div>
-                    </div>
-                </div>
-                <button class="buy-btn" onclick="placeOrder('Premium Winter Hoodie', 999)">Buy Now</button>
-            </div>
+    <!-- 1. Home Section -->
+    <div id="home" class="section active">
+        <div class="banner">
+            <h2>Mega Seasonal Sale!</h2>
+            <p>Get up to 50% OFF on Fashion & Accessories</p>
         </div>
-
-        <!-- PAYMENT SECTION -->
-        <div id="payment" class="section">
-            <div class="info-card" style="text-align: center;">
-                <h3 style="color: #00dbde; margin-bottom: 6px;">UPI Payment Only</h3>
-                <p style="font-size: 12px; color: #ccc;">Pay directly to our verified merchant UPI ID:</p>
-                <div class="upi-box">ashraful6807@okaxis</div>
-                <p id="payNote" style="font-size: 12px; color: #ff416c;">No pending order selected.</p>
-            </div>
+        <h3 style="margin-bottom: 12px; font-size: 16px;">Trending Products</h3>
+        <div class="product-grid" id="home-products">
+            <!-- Dynamic Products -->
         </div>
+    </div>
 
-        <!-- REFER & EARN SECTION -->
-        <div id="refer" class="section">
-            <div class="info-card" style="text-align: center;">
-                <h3 style="color: #00dbde; margin-bottom: 8px;">🎁 Refer & Earn ₹50</h3>
-                <p style="font-size: 12px; color: #ccc;">Share ASHRAFUL UNIQUE SHOP with your friends and earn ₹50 reward on their first order!</p>
-                <div class="upi-box" style="font-size: 11px; color: #00ff88;" id="refLinkText">Loading...</div>
-            </div>
+    <!-- 2. Shop Section -->
+    <div id="shop" class="section">
+        <h3 style="margin-bottom: 12px; font-size: 16px;">All Categories & Products</h3>
+        <div class="product-grid" id="shop-products">
+            <!-- Dynamic Products -->
         </div>
+    </div>
 
-        <!-- TERMS & POLICY SECTION -->
-        <div id="terms" class="section">
-            <div class="info-card">
-                <h3 style="color: #00dbde; margin-bottom: 8px;">📜 Terms & Policy</h3>
-                <p style="font-size: 12px; color: #ccc;">
-                    • <b>Payment:</b> Orders are confirmed after UPI payment.<br>
-                    • <b>Delivery:</b> Fast shipping across Assam & All India.<br>
-                    • <b>Return Policy:</b> 7-day easy replacement for damaged items.<br>
-                    • <b>Privacy:</b> Your details are 100% safe with us.
-                </p>
-            </div>
+    <!-- 3. Payment Section -->
+    <div id="payment" class="section">
+        <div class="payment-box">
+            <h3>Scan & Pay via any UPI App</h3>
+            <p style="font-size: 13px; color: #666; margin-top: 5px;">Ashraful Hussain</p>
+            <img src="https://i.ibb.co/3ykf168J/1000070389.png" alt="Payment QR Code">
+            <div class="upi-text">UPI ID: ashraful6807@okaxis</div>
+            <p style="font-size: 12px; color: #777;">After payment, share screenshot on WhatsApp support.</p>
         </div>
+    </div>
 
-        <!-- PROFILE SECTION -->
-        <div id="profile" class="section">
-            <div class="info-card">
-                <p><b>👤 Owner:</b> Ashraful</p>
-                <p><b>🏪 Shop Name:</b> ASHRAFUL UNIQUE SHOP</p>
-                <p><b>📍 Address:</b> Assam, Morigaon, Laharighat, Garam Bazar</p>
-                <p><b>✅ Status:</b> Verified Seller 🟢</p>
-                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 12px 0;">
-                <p style="font-weight: bold; color: #00dbde; margin-bottom: 5px;">📦 Order History:</p>
-                <div id="orderHistory" style="font-size: 12px; color: #ccc;">No orders yet.</div>
-            </div>
+    <!-- 4. Support Section -->
+    <div id="support" class="section">
+        <div class="support-box">
+            <h3>Customer Support</h3>
+            <p style="margin-top: 10px; font-size: 14px; color: #555;">Need help with your order or payment? Contact us directly:</p>
+            <p style="margin-top: 15px; font-size: 14px;"><strong>Email:</strong> ashrafuldexex@gamil.com</p>
+            <p style="margin-top: 5px; font-size: 14px;"><strong>Phone / WhatsApp:</strong> 7578868344</p>
+            <a href="https://wa.me/917578868344?text=Hello%20Ashraful%20Unique%20Shop,%20I%20need%20help." class="support-btn" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+            </a>
         </div>
+    </div>
 
-        <!-- SUPPORT SECTION -->
-        <div id="support" class="section">
-            <div class="info-card">
-                <h3 style="color: #00dbde; margin-bottom: 8px;">💬 Customer Support</h3>
-                <p><b>📱 WhatsApp:</b> +91 7578868344</p>
-                <p><b>📧 Email:</b> ashrafuluniqeshopx@gmail.com</p>
-                <p><b>📍 Location:</b> Garam Bazar, Laharighat, Morigaon, Assam</p>
-                <p style="font-size: 11px; color: #aaa; margin-top: 10px;">Available 24/7 for order & payment assistance.</p>
-            </div>
+    <!-- 5. Profile Section -->
+    <div id="profile" class="section">
+        <div class="profile-box">
+            <h3>My Profile & Address</h3>
+            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Update your delivery details like Flipkart.</p>
+            
+            <label>Full Name</label>
+            <input type="text" id="cust-name" placeholder="Enter your name">
+
+            <label>Mobile Number</label>
+            <input type="text" id="cust-phone" placeholder="Enter mobile number">
+
+            <label>Delivery Address</label>
+            <input type="text" id="cust-address" placeholder="Enter house no, street, city, pincode">
+
+            <button class="btn-buy" onclick="saveProfile()">Save Address</button>
+            <p id="save-msg" style="color: green; font-size: 13px; margin-top: 10px; text-align: center;"></p>
         </div>
+    </div>
 
-        <div class="footer">
-            © 2026 ASHRAFUL UNIQUE SHOP • All Rights Reserved
+    <!-- Fixed Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('home', this)">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </div>
+        <div class="nav-item" onclick="switchTab('shop', this)">
+            <i class="fa-solid fa-bag-shopping"></i>
+            Shop
+        </div>
+        <div class="nav-item" onclick="switchTab('payment', this)">
+            <i class="fa-solid fa-wallet"></i>
+            Payment
+        </div>
+        <div class="nav-item" onclick="switchTab('support', this)">
+            <i class="fa-solid fa-headset"></i>
+            Support
+        </div>
+        <div class="nav-item" onclick="switchTab('profile', this)">
+            <i class="fa-solid fa-user"></i>
+            Profile
         </div>
     </div>
 
     <script>
-        let ordersList = [];
-        document.getElementById('refLinkText').innerText = window.location.href;
+        // Product Data
+        const products = [
+            { id: 1, name: "Cotton Plain T-Shirt", price: "₹199", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=300" },
+            { id: 2, name: "Casual Formal Shirt", price: "₹499", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300" },
+            { id: 3, name: "Slim Fit Denim Jeans", price: "₹799", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=300" },
+            { id: 4, name: "Premium Winter Hoodie", price: "₹999", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300" }
+        ];
 
-        function openTab(tabId, btnElement) {
-            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            btnElement.classList.add('active');
+        // Load Products into Home and Shop
+        function loadProducts() {
+            let html = "";
+            products.forEach(p => {
+                html += `
+                    <div class="product-card" onclick="alert('${p.name} added to cart! Proceed to Payment.')">
+                        <img src="${p.img}" alt="${p.name}">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">${p.price}</div>
+                        <button class="btn-buy">Buy Now</button>
+                    </div>
+                `;
+            });
+            document.getElementById('home-products').innerHTML = html;
+            document.getElementById('shop-products').innerHTML = html;
         }
 
-        function placeOrder(itemName, price) {
-            const orderId = "ASH" + Math.floor(1000 + Math.random() * 9000);
-            const alertBox = document.getElementById('orderSuccess');
-            alertBox.style.display = 'block';
-            alertBox.innerHTML = `✅ <b>Order Placed!</b><br>${itemName} (₹${price})<br>Order ID: <b>#${orderId}</b>`;
+        // Tab Switching Logic
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
 
-            document.getElementById('payNote').innerText = `Pending Payment: ₹${price} (${itemName})`;
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            window.scrollTo(0, 0);
+        }
 
-            ordersList.push(`• <b>#${orderId}</b> - ${itemName} (₹${price})`);
-            document.getElementById('orderHistory').innerHTML = ordersList.join('<br>');
+        // Save Profile Functionality
+        function saveProfile() {
+            let name = document.getElementById('cust-name').value;
+            let phone = document.getElementById('cust-phone').value;
+            let address = document.getElementById('cust-address').value;
 
-            setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
+            if(name && phone && address) {
+                localStorage.setItem('customer_name', name);
+                localStorage.setItem('customer_phone', phone);
+                localStorage.setItem('customer_address', address);
+                document.getElementById('save-msg').innerText = "Address saved successfully!";
+            } else {
+                alert("Please fill all details!");
+            }
+        }
+
+        // Load saved profile data on startup
+        window.onload = function() {
+            loadProducts();
+            if(localStorage.getItem('customer_name')) {
+                document.getElementById('cust-name').value = localStorage.getItem('customer_name');
+                document.getElementById('cust-phone').value = localStorage.getItem('customer_phone');
+                document.getElementById('cust-address').value = localStorage.getItem('customer_address');
+            }
         }
     </script>
-
 </body>
 </html>
-  
