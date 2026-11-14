@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Under Maintenance | UG Technical Support</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>System Lockdown & Maintenance | ASHRAFUL UNIQUE SHOP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -18,62 +18,50 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at 50% 20%, #1a1528 0%, #09070e 100%);
-      color: #f3f0ff;
+      background: radial-gradient(circle at 50% 20%, #12101e 0%, #050409 100%);
+      color: #e2dfef;
       padding: 20px;
       overflow: hidden;
       position: relative;
     }
 
-    /* Ambient Dim Glow Background Effect */
+    /* Cyber Security Neon Glow Orbs */
     .glow-orb-1 {
       position: absolute;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(124, 77, 255, 0.22) 0%, rgba(255, 117, 140, 0.08) 50%, transparent 70%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, rgba(79, 70, 229, 0.08) 50%, transparent 70%);
       border-radius: 50%;
       top: 10%;
       left: 50%;
       transform: translateX(-50%);
-      filter: blur(50px);
+      filter: blur(60px);
       z-index: 0;
-      animation: pulseGlow 6s infinite alternate ease-in-out;
+      animation: pulseNeon 5s infinite alternate ease-in-out;
     }
 
-    .glow-orb-2 {
-      position: absolute;
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle, rgba(255, 117, 140, 0.15) 0%, transparent 70%);
-      border-radius: 50%;
-      bottom: 10%;
-      left: 30%;
-      filter: blur(40px);
-      z-index: 0;
+    @keyframes pulseNeon {
+      0% { transform: translateX(-50%) scale(0.9); opacity: 0.5; }
+      100% { transform: translateX(-50%) scale(1.15); opacity: 0.9; }
     }
 
-    @keyframes pulseGlow {
-      0% { transform: translateX(-50%) scale(0.9); opacity: 0.6; }
-      100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
-    }
-
-    /* Glassmorphism Card with Entry Animation */
+    /* Glassmorphism Cyber Card */
     .maintenance-card {
       position: relative;
       z-index: 1;
-      max-width: 480px;
+      max-width: 520px;
       width: 100%;
-      background: rgba(255, 255, 255, 0.035);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 28px;
-      padding: 42px 30px;
+      background: rgba(255, 255, 255, 0.025);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 242, 254, 0.15);
+      border-radius: 30px;
+      padding: 44px 32px;
       text-align: center;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-      animation: cardEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 242, 254, 0.05);
+      animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(35px);
     }
 
     @keyframes cardEntrance {
@@ -83,166 +71,183 @@
       }
     }
 
-    /* Settings / Gear Icon with Smooth Rotation */
+    /* Unique High-Tech Rotating Security & Shield Animation */
     .icon-container {
       position: relative;
-      width: 85px;
-      height: 85px;
-      margin: 0 auto 24px;
+      width: 95px;
+      height: 95px;
+      margin: 0 auto 26px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .gear-bg {
+    /* Outer Radar Ring */
+    .radar-ring {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(124, 77, 255, 0.2), rgba(255, 117, 140, 0.2));
+      border: 2px dashed rgba(0, 242, 254, 0.35);
       border-radius: 50%;
-      filter: blur(8px);
-      animation: pulseGlow 3s infinite alternate;
+      animation: spinRadar 12s linear infinite;
     }
 
-    .gear-icon {
+    @keyframes spinRadar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Inner Core Gear */
+    .core-gear {
       position: relative;
       z-index: 2;
       width: 70px;
       height: 70px;
-      background: linear-gradient(135deg, #7c4dff 0%, #ff758c 100%);
+      background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 0 30px rgba(124, 77, 255, 0.5);
-      animation: rotateGear 10s linear infinite;
+      box-shadow: 0 0 25px rgba(0, 198, 255, 0.5);
+      animation: counterSpin 6s linear infinite;
     }
 
-    .gear-icon svg {
+    @keyframes counterSpin {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    .core-gear svg {
       width: 36px;
       height: 36px;
       fill: #ffffff;
     }
 
-    @keyframes rotateGear {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
     .badge {
       display: inline-block;
-      background: rgba(124, 77, 255, 0.15);
-      color: #b89eff;
-      font-size: 12px;
+      background: rgba(0, 198, 255, 0.12);
+      color: #00f2fe;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 6px 16px;
+      padding: 7px 18px;
       border-radius: 50px;
-      border: 1px solid rgba(124, 77, 255, 0.3);
-      margin-bottom: 16px;
+      border: 1px solid rgba(0, 198, 255, 0.3);
+      margin-bottom: 18px;
     }
 
     h1 {
-      font-size: 25px;
+      font-size: 26px;
       font-weight: 700;
-      margin-bottom: 14px;
-      background: linear-gradient(to right, #ffffff, #e2d9ff);
+      margin-bottom: 16px;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    h1 span {
+      background: linear-gradient(to right, #00f2fe, #4facfe);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .love-message {
+    .guru-message {
       font-size: 15px;
-      line-height: 1.7;
-      color: #d1cbe6;
+      line-height: 1.8;
+      color: #c9c3e2;
       font-weight: 300;
       margin-bottom: 22px;
+      text-align: left;
     }
 
-    .love-message strong {
-      color: #ff9eb5;
-      font-weight: 600;
+    .guru-message strong {
+      color: #00f2fe;
+      font-weight: 500;
     }
 
-    .status-note {
-      background: rgba(0, 0, 0, 0.3);
+    .prayer-box {
+      background: rgba(0, 0, 0, 0.35);
       border-radius: 16px;
-      padding: 16px 18px;
-      font-size: 13.5px;
-      color: #b8b0d4;
-      border-left: 3px solid #7c4dff;
-      margin-bottom: 26px;
-      line-height: 1.6;
+      padding: 18px 20px;
+      font-size: 14px;
+      color: #b5afd2;
+      border-left: 3px solid #00f2fe;
+      margin-bottom: 28px;
+      line-height: 1.7;
       text-align: left;
     }
 
     .divider {
       height: 1px;
       background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
-    .signature {
-      font-size: 14px;
-      color: #a39bc2;
+    .signature-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
     }
 
-    .signature span {
-      display: block;
-      margin-top: 4px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #ffffff;
-      letter-spacing: 0.5px;
+    .owner-title {
+      font-size: 13px;
+      color: #9a91c0;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
-    .heart-symbol {
-      color: #ff5e7e;
-      display: inline-block;
-      animation: softBeat 2s infinite ease-in-out;
+    .owner-name {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to right, #ffffff, #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
     }
 
-    @keyframes softBeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+    .brand-sub {
+      font-size: 12px;
+      color: #78709e;
+      margin-top: 2px;
     }
   </style>
 </head>
 <body>
 
   <div class="glow-orb-1"></div>
-  <div class="glow-orb-2"></div>
 
   <div class="maintenance-card">
-    <!-- Rotating Settings / Gear Icon -->
+    <!-- Unique High-Tech Radar & Shield Gear Animation -->
     <div class="icon-container">
-      <div class="gear-bg"></div>
-      <div class="gear-icon">
+      <div class="radar-ring"></div>
+      <div class="core-gear">
         <svg viewBox="0 0 24 24">
-          <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.3L5.24,5.34C5.02,5.27,4.77,5.34,4.65,5.56 L2.73,8.88c-0.11,0.2-0.06,0.47,0.12,0.61l2.03,1.58c-0.05,0.3-0.07,0.62-0.07,0.94s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0.01,0.59-0.22l1.92-3.32c0.11-0.2,0.06-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+          <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17,17C15.5,18.5 13.83,19.22 12,19.22C10.17,19.22 8.5,18.5 7,17C7,15.5 10,14.5 12,14.5C14,14.5 17,15.5 17,17Z"/>
         </svg>
       </div>
     </div>
 
-    <div class="badge">System Upgrade</div>
+    <div class="badge">System Core Upgrade</div>
     
-    <h1>We'll Be Back Soon!</h1>
+    <h1>Digital Vault <span>Securing...</span></h1>
     
-    <p class="love-message">
-      To our lovely customers, thank you for all your <strong>endless love and support</strong>! ❤️<br>
-      Our website is currently undergoing maintenance as we work behind the scenes to upgrade your experience.
-    </p>
+    <div class="guru-message">
+      Mere pyare dosto aur tech community, system ki security aur encryption ko aur zyada impenetrable (mazboot) banane ke liye background mein ek major upgrade chal raha hai. Yeh thoda waqt zaroor le raha hai, kyunki aapki safety aur data privacy ke sath koi compromise nahi ho sakta.
+    </div>
 
-    <div class="status-note">
-      ⏳ There is no specific timeline for when we will be back online just yet. We truly appreciate your <strong>patience and understanding</strong> while we tune things up.
+    <div class="prayer-box">
+      🙏 Ek guru aur protector ke naate, meri dil se yehhi dua hai ki aap aur aapka poora parivar hamesha <strong>healthy, safe aur prosperous</strong> rahein. Aapka yeh dhairya (patience) hi meri sabse badi taakat hai.
     </div>
 
     <div class="divider"></div>
 
-    <div class="signature">
-      Thank You With Lots of Love <span class="heart-symbol">♥</span>
-      <span>— UG Technical Support</span>
+    <div class="signature-container">
+      <span class="owner-title">Architect & Founder</span>
+      <span class="owner-name">Ashraful Hussain</span>
+      <span class="brand-sub">UG Technical Support</span>
     </div>
   </div>
 
