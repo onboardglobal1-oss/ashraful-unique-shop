@@ -200,8 +200,49 @@
             { id: 7, name: "Smart Fitness Watch", price: 1299, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" },
             { id: 8, name: "Classic Leather Wallet", price: 299, img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" },
             { id: 9, name: "Designer Sunglasses", price: 449, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300" },
-            { id: 10, name: "Casual Backpack", price: 749, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" }
+            { id: 10, name: "Casual Backpack", price: 749, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" },
+            // Added 25+ more unique products
+            { id: 11, name: "Leather Formal Belt", price: 349, img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=300" },
+            { id: 12, name: "Running Track Pants", price: 599, img: "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=300" },
+            { id: 13, name: "Graphic Printed Oversized Tee", price: 399, img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=300" },
+            { id: 14, name: "Waterproof Smartwatch Pro", price: 1599, img: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=300" },
+            { id: 15, name: "Canvas Casual Sneakers", price: 699, img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=300" },
+            { id: 16, name: "Puffer Winter Jacket", price: 1499, img: "https://images.unsplash.com/photo-1544441893-675973e31985?w=300" },
+            { id: 17, name: "Checked Flannel Shirt", price: 549, img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=300" },
+            { id: 18, name: "Aviator Sun Glasses", price: 499, img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300" },
+            { id: 19, name: "Minimalist Metal Watch", price: 899, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=300" },
+            { id: 20, name: "Sports Gym Duffle Bag", price: 999, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" },
+            { id: 21, name: "Cotton Cargo Shorts", price: 499, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=300" },
+            { id: 22, name: "Over-Ear Wireless Headphones", price: 1299, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300" },
+            { id: 23, name: "Formal Oxford Shoes", price: 1199, img: "https://images.unsplash.com/photo-1533867617858-e7d97e06a847?w=300" },
+            { id: 24, name: "Cotton Knitted Beanie Cap", price: 199, img: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=300" },
+            { id: 25, name: "Sleek Carbon Fiber Wallet", price: 449, img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" },
+            { id: 26, name: "Printed Summer Kurti", price: 499, img: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=300" },
+            { id: 27, name: "Stylish Denim Jacket", price: 1299, img: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300" },
+            { id: 28, name: "Running Pro Training Shoes", price: 1099, img: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=300" },
+            { id: 29, name: "Gold Plated Chain Watch", price: 1499, img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=300" },
+            { id: 30, name: "Travel Laptop Backpack", price: 1199, img: "https://images.unsplash.com/photo-1491637639811-60aa275fe3f3?w=300" },
+            { id: 31, name: "Biker Leather Jacket", price: 2199, img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=300" },
+            { id: 32, name: "Bluetooth Neckband Earphones", price: 599, img: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=300" },
+            { id: 33, name: "Classic Polo Neck T-Shirt", price: 299, img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=300" },
+            { id: 34, name: "Classic Polo Neck T-Shirt", price: 299, img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=300" },
+            { id: 34, name: "Casual Denim Shirt", price: 649, img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300" }
         ];
+
+        let products = [];
+        let idCounter = 1;
+        const categoriesList = ["Classic", "Trendy", "Super", "Royal", "Elite", "Pro", "New", "Modern", "Designer", "Exclusive"];
+        
+        categoriesList.forEach(prefix => {
+            baseProducts.forEach(bp => {
+                products.push({
+                    id: idCounter++,
+                    name: `${prefix} ${bp.name}`,
+                    price: bp.price + (idCounter % 5) * 50,
+                    img: bp.img
+                });
+            });
+        });
 
         let cart = [];
         let currentSelectedProduct = null;
@@ -209,14 +250,7 @@
         function displayProducts(productList, elementId) {
             let html = "";
             productList.forEach(p => {
-                html += `
-                    <div class="product-card" onclick="openDetail(${p.id})">
-                        <img src="${p.img}" alt="${p.name}">
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-price">₹${p.price}</div>
-                        <button class="btn-buy" onclick="event.stopPropagation(); quickBuy(${p.id})">Buy Now</button>
-                    </div>
-                `;
+                html += `<div class="product-card" onclick="openDetail(${p.id})"><img src="${p.img}" alt="${p.name}"><div class="product-name">${p.name}</div><div class="product-price">₹${p.price}</div><button class="btn-buy" onclick="event.stopPropagation(); quickBuy(${p.id})">Buy Now</button></div>`;
             });
             document.getElementById(elementId).innerHTML = html;
         }
@@ -323,6 +357,14 @@
                 alert("Please fill all details!");
             }
         }
+
+        const bannerSlider = document.getElementById('bannerSlider');
+        bannerSlider.addEventListener('scroll', () => {
+            let index = Math.round(bannerSlider.scrollLeft / bannerSlider.clientWidth);
+            document.querySelectorAll('.dot').forEach((d, i) => {
+                d.classList.toggle('active', i === index);
+            });
+        });
 
         window.onload = function() {
             loadAllProducts();
