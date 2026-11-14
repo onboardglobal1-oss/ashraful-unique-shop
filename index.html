@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Under Maintenance | UG Technical Support</title>
+  <title>Under Maintenance | ASHRAFUL UNIQUE SHOP</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -18,46 +18,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at 50% 20%, #1a1528 0%, #09070e 100%);
+      /* Clean, solid dark background (blurry glowing orbs removed) */
+      background: #09070e;
       color: #f3f0ff;
       padding: 20px;
       overflow: hidden;
       position: relative;
     }
 
-    /* Ambient Dim Glow Background Effect */
-    .glow-orb-1 {
-      position: absolute;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(124, 77, 255, 0.22) 0%, rgba(255, 117, 140, 0.08) 50%, transparent 70%);
-      border-radius: 50%;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      filter: blur(50px);
-      z-index: 0;
-      animation: pulseGlow 6s infinite alternate ease-in-out;
-    }
-
-    .glow-orb-2 {
-      position: absolute;
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle, rgba(255, 117, 140, 0.15) 0%, transparent 70%);
-      border-radius: 50%;
-      bottom: 10%;
-      left: 30%;
-      filter: blur(40px);
-      z-index: 0;
-    }
-
-    @keyframes pulseGlow {
-      0% { transform: translateX(-50%) scale(0.9); opacity: 0.6; }
-      100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
-    }
-
-    /* Glassmorphism Card with Entry Animation */
+    /* Clean Glassmorphism Card with Entry Animation */
     .maintenance-card {
       position: relative;
       z-index: 1;
@@ -101,7 +70,6 @@
       background: linear-gradient(135deg, rgba(124, 77, 255, 0.2), rgba(255, 117, 140, 0.2));
       border-radius: 50%;
       filter: blur(8px);
-      animation: pulseGlow 3s infinite alternate;
     }
 
     .gear-icon {
@@ -188,13 +156,20 @@
       color: #a39bc2;
     }
 
-    .signature span {
+    .owner-name {
       display: block;
       margin-top: 4px;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 17px;
+      font-weight: 700;
       color: #ffffff;
       letter-spacing: 0.5px;
+    }
+
+    .brand-name {
+      display: block;
+      font-size: 13px;
+      color: #b89eff;
+      margin-top: 2px;
     }
 
     .heart-symbol {
@@ -210,9 +185,6 @@
   </style>
 </head>
 <body>
-
-  <div class="glow-orb-1"></div>
-  <div class="glow-orb-2"></div>
 
   <div class="maintenance-card">
     <!-- Rotating Settings / Gear Icon -->
@@ -242,7 +214,8 @@
 
     <div class="signature">
       Thank You With Lots of Love <span class="heart-symbol">♥</span>
-      <span>— UG Technical Support</span>
+      <span class="owner-name">Ashraful Hussain</span>
+      <span class="brand-name">UG Technical Support</span>
     </div>
   </div>
 
